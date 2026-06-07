@@ -1,0 +1,130 @@
+select_personal_deity_oonihilism_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/fp1_decisons_hold_bolt.dds"
+	}
+	desc = select_personal_deity_oonihilism_decision_desc
+	selection_tooltip = select_personal_deity_oonihilism_decision_tooltip
+
+	is_shown = {
+		# Following a valid religion & faith.
+		religion = religion:oonihilism_religion
+		faith = { has_doctrine_parameter = select_personal_god_active }
+	}
+
+	is_valid = {
+	}
+
+	is_valid_showing_failures_only = {
+		# Have to at _least_ not be in piety debt.
+		piety >= 0
+	}
+
+	cooldown = { years = 2 }
+
+	effect = {
+		# Show the possible options.
+		show_as_tooltip = {
+			random_list = {
+				desc = select_personal_deity_oonihilism_decision_tt
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_martial
+					add_character_modifier = bhakti_oonihilism_martial
+				}
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_stewardship
+					add_character_modifier = bhakti_oonihilism_stewardship
+				}
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_learning
+					add_character_modifier = bhakti_oonihilism_learning
+				}
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_intrigue
+					add_character_modifier = bhakti_oonihilism_intrigue
+				}
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_diplomacy
+					add_character_modifier = bhakti_oonihilism_diplomacy
+				}
+				100 = {
+					show_chance = no
+					desc = select_personal_deity_oonihilism_decision.select_wanderer
+					add_character_modifier = bhakti_oonihilism_wanderer
+				}
+			}
+		}
+		# And the actual effect.
+		trigger_event = oonihilism_decisions.01
+	}
+
+	ai_check_interval = 96
+	
+	ai_potential = {
+		piety >= minor_piety_value
+		NOR = {
+			has_character_modifier = bhakti_oonihilism_martial
+			has_character_modifier = bhakti_oonihilism_stewardship
+			has_character_modifier = bhakti_oonihilism_learning
+			has_character_modifier = bhakti_oonihilism_intrigue
+			has_character_modifier = bhakti_oonihilism_diplomacy
+			has_character_modifier = bhakti_oonihilism_wanderer
+		}
+	}
+
+	ai_will_do = {
+		base = 100
+	}
+}
+
+###################################
+# Embrace oonihilism
+# Adopt a oonihilism faith in secret, provided one of your counties follows the chosen faith
+###################################
+embrace_oonihilism_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/fp3_temple.dds"
+	}
+	desc = embrace_oonihilism_decision_desc
+	selection_tooltip = embrace_oonihilism_decision_tooltip
+	sort_order = 120
+	
+	is_shown = {
+		# Narratively, this decision is about embracing the faith of your ancestors over newer "modern" faiths
+		# Therefore, this decision should not be available to Zoroastrians looking to change their sect
+		NOT = { has_religion = religion:oonihilism_religion }
+		current_date <= 960.1.1
+	}
+
+	is_valid = {
+		# Don't grant more than 1 secret faith at once
+		custom_tooltip = {
+			text = no_secret_faith_tt
+			NOT = { exists = secret_faith }
+		}
+		custom_tooltip = {
+			text = year_960_tt
+			current_date <= 960.1.1
+		}
+		NOT = { has_religion = religion:oonihilism_religion }
+	}
+
+	is_valid_showing_failures_only = {
+		is_physically_able_adult = yes
+	}
+
+	effect = {
+		custom_tooltip = embrace_oonihilism_decision.tt
+		trigger_event = oonihilism_decisions.02
+	}
+
+	cost = { piety = major_piety_value }
+
+	ai_will_do = {
+		base = -1000
+	}
+}

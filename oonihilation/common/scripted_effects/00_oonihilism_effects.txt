@@ -1,0 +1,54 @@
+# Used to set a Oonihilist's personal god.
+set_oonihilist_patron = {
+	# Remove any previous personal god relation.
+	if = {
+		if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_martial
+			}
+			remove_character_modifier = oonihilist_patron_martial
+			add_piety = massive_piety_loss
+		}
+		else_if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_stewardship
+			}
+			remove_character_modifier = oonihilist_patron_stewardship
+			add_piety = massive_piety_loss
+		}
+		else_if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_learning
+			}
+			remove_character_modifier = oonihilist_patron_learning
+			add_piety = massive_piety_loss
+		}
+		else_if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_intrigue
+			}
+			remove_character_modifier = oonihilist_patron_intrigue
+			add_piety = massive_piety_loss
+		}
+		else_if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_diplomacy
+			}
+			remove_character_modifier = oonihilist_patron_diplomacy
+			add_piety = massive_piety_loss
+		}
+		else_if = {	
+			limit = {
+				has_character_modifier = oonihilist_patron_wanderer
+			}
+			remove_character_modifier = oonihilist_patron_wanderer
+			add_piety = massive_piety_loss
+		}
+	}
+	else = {
+		# If no current bhakti, cost is reduced.
+		add_piety = medium_piety_loss
+	}
+
+	add_character_modifier = $OONIHILIST_PATRON$
+}

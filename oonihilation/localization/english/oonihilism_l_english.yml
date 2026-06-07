@@ -1,0 +1,129 @@
+﻿l_english:
+ ##Common Oonihilism Localization
+ oonihilism_religion:0 "Oonihilism"
+ oonihilism_religion_adj:0 "Oonihilist"
+ oonihilism_religion_adherent:0 "Oonilhilist"
+ oonihilism_religion_adherent_plural:0 "Oonilhilists"
+ oonihilism_religion_desc:0 "Don't look at my eel!"
+
+ oonihilism_high_god_name:0 "Guang Guang"
+ oonihilism_high_god_name_2:0 "$oonihilism_high_god_name$" # Optional translation alt
+ oonihilism_high_god_name_possessive:0 "Guang Guang's"
+ oonihilism_high_god_name_alternate:0 "the EOMM"
+ oonihilism_high_god_name_alternate_possessive:0 "the EOMM"
+ oonihilism_good_god_name_three_pure_ones:0 "Three Pure Ones"
+ oonihilism_devil_name:0 "disharmony"
+ oonihilism_devil_name_possessive:0 "disharmony's"
+ oonihilism_house_of_worship:0 "$paganism_house_of_worship$"
+ oonihilism_house_of_worship_2:0 "$paganism_house_of_worship_2$" # Optional translation alt
+ oonihilism_house_of_worship_3:0 "$paganism_house_of_worship_3$" # Optional translation alt
+ oonihilism_house_of_worship_plural:0 "$paganism_house_of_worship_plural$"
+ oonihilism_religious_symbol:0 "The Oonsong"
+ oonihilism_religious_symbol_2:0 "$oonihilism_religious_symbol$" # Optional translation alt
+ oonihilism_religious_symbol_3:0 "$oonihilism_religious_symbol$" # Optional translation alt
+ oonihilism_religious_text:0 "Oonibus"
+ oonihilism_religious_text_2:0 "$oonihilism_religious_text$" # Optional translation alt
+ oonihilism_religious_text_3:0 "$oonihilism_religious_text$" # Optional translation alt
+ oonihilism_religious_head_title:0 "Oonihilator"
+ oonihilism_religious_head_title_name:0 "One Above All"
+ oonihilism_devotee_male:0 "$oonihilism_devotee_neuter$"
+ oonihilism_devotee_male_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_devotee_female:0 "$oonihilism_devotee_neuter$"
+ oonihilism_devotee_female_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_devotee_neuter:0 "oonihilist"
+ oonihilism_devotee_neuter_plural:0 "oonihilists"
+ oonihilism_priest_male:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_male_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_priest_female:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_female_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_priest_neuter:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_neuter_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_alternate_priest_term_plural:0 "Hearald"
+ oonihilism_divine_realm:0 "the Oon"
+ oonihilism_divine_realm_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_divine_realm_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_positive_afterlife:0 "$oonihilism_divine_realm$"
+ oonihilism_positive_afterlife_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_positive_afterlife_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_negative_afterlife:0 "$oonihilism_divine_realm$"
+ oonihilism_negative_afterlife_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_negative_afterlife_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+
+ oonihilism_creator_god_name:0 "oonihilism_high_god_name$"
+ oonihilism_creator_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_health_god_name:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_health_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_fertility_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_fertility_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_wealth_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_wealth_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_household_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_household_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_fate_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_fate_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_knowledge_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_knowledge_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_war_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_war_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_trickster_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_trickster_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_night_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_night_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_water_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_water_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ witchgodname_oonihilism_daode_tianzun:0 "$oonihilism_high_god_name$"
+ witchgodname_oonihilism_daode_tianzun_possessive:0 "$oonihilism_high_god_name_possessive$"
+
+ #Oonihilation Religion
+ oonihilation:0 "Oonihilation"
+ oonihilation_adj:0 "Oonihilationist"
+ oonihilation_adherent:0 "Oonihilationist"
+ oonihilation_adherent_plural:0 "Oonihilationists"
+ oonihilation_desc:0 "Don't look at my eel!"
+ 
+ oonihilation_positive_afterlife:0 "The Oon"
+ oonihilation_negative_afterlife:0 "The Oon"
+
+ ##Oonihilism Tenets
+
+ #Tiger Hearlds
+ tenet_adaptive_tigers_name:0 "Tiger Hearlds"
+ tenet_adaptive_tigers_desc:0 "Convert or be eaten!"
+
+ doctrine_parameter_unlocks_naval_raiding:0 "Unlocks the ability to [raid|E] over seas, if you can already [raid|E]"
+ doctrine_parameter_unlocks_sailable_major_rivers:0 "Unlocks the ability to sail in Major Rivers"
+ doctrine_parameter_unlocks_adventure_intent:0 "Unlocks the #V Adventure#! [raid_intent|E]"
+
+ #Littermates
+ tenet_oon_marriage_name:0 "Littermates"
+ tenet_oon_marriage_desc:0 "By marrying close of kin, we emulate the sacred unions of the Oon. Good qualities will be passed down our family line, and thus we gain purity and favor in the eternal battle against evil."
+ doctrine_parameter_pure_blooded_more_common:0 "Children of this religion have a chance of being [GetTrait('pure_blooded').GetName( GetNullCharacter )]."
+
+ #Bamboo Gardens
+ tenet_oon_reincarnation_name:0 "Bamboo Gardens"
+ tenet_oon_reincarnation_desc:0 "Don't look upon my garden!"
+ doctrine_parameter_bamboo_gardens_conversion_active:0 "County Conversion Speed: #P +15%#!"
+ doctrine_parameter_bamboo_gardens_same_culture_conversion_active:1 "Conversion Speed in [counties|E] of my [culture|E]: #P +25%#!"
+ doctrine_parameter_bamboo_gardens_same_faith_promote_culture_active:1 "Promote Culture Speed in [counties|E] of my [faith|E]: #P +40%#!"
+ STEWARD_PROMOTE_CULTURE_BAMBOO_GARDENS_BONUS_MODIFIER:2 "[councillor_liege.GetFaith.GetName] — Bamboo Gardens"
+ COURT_CHAPLAIN_CONVERSION_BAMBOO_GARDENS_BONUS_MODIFIER:2 "[councillor.GetFaith.GetName] — [GetFaithDoctrine('tenet_oon_reincarnation').GetBaseName] (Flat)"
+ COURT_CHAPLAIN_CONVERSION_BAMBOO_GARDENS_CULTURE_BONUS_MODIFIER:2 "[councillor.GetFaith.GetName] — [GetFaithDoctrine('tenet_oon_reincarnation').GetBaseName] (Same Culture)"
+
+ ##Oonihilism Decisions
+
+ #Embrace Oonihilism
+ embrace_oonihilism_decision:0 "Embrace Oonihilism"
+ embrace_oonihilism_decision_desc:0 "I feel the pull of the Great Oon. One way or another, I will bow to Guang Guang's divine will."
+ embrace_oonihilism_decision_tooltip:0 "Adopt an Oonihilist faith in secret"
+ embrace_oonihilism_decision.tt: "You will choose an Oonihilist faith to worship in [secret|E]"
+ embrace_oonihilism_decision_confirm:0 "Guang Guang Be Praised!"
+
+ oonihilism_decisions.02.t: "Embrace Oonihilism"
+ oonihilism_decisions.02.desc: "No matter what, I will follow the teachings of Guang Guang and defend agianst the destruction of the Great Oon. But in my hour or need, which faith will I call my own?"
+ oonihilism_decisions.02.a: "I will practice [GetFaithByKey('oonihilation').GetName]."
+
+ adventure_intent_oonihilism: "Adventure"
+ adventure_intent_oonihilism_desc: "$adventure_intent_oonihilism_loot$\n\n$adventure_intent_oonihilism_modifiers$\n$adventure_intent_oonihilism_flavor$"
+ adventure_intent_oonihilism_loot: "#bol Types of Loot:#!\n\t\t$BULLET$[gold_i][gold|E]: #V 100%#!\n\t\t$BULLET$[prestige_i][prestige|E]: #N -150%#!"
+ adventure_intent_oonihilism_modifiers: "#bol Army Modifiers:#!\n\t\t$BULLET$Hostile County Attrition: #P -100%#!\n\t\t$BULLET$[army|E] [raid_loot|E] Capacity: #P +300%#!\n\t\t$BULLET$[command_modifier_i|E][raid|E] Speed: #N -10%#!\n\t\t$BULLET$Movement Speed over land while [raiding|e]: #N -50%#!"
+ adventure_intent_oonihilism_flavor: "#weak Our boats will be heavy with loot, as we look to distant shores for loot and plunder.#!"
