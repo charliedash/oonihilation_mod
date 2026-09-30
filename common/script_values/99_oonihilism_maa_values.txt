@@ -1,0 +1,23 @@
+﻿# Cost for tiger_cavalry (War Tigers). Rebased off heavy_cavalry (not light_cavalry) to match the
+# elephant-tier stat buff in common/men_at_arms_types/99_oonihilism_maa_types.txt — mirroring
+# vanilla's own war_elephant, which prices itself off heavy_cavalry_recruitment_cost * 2 despite
+# also being classified under a different base type. Tigers are priced a notch below the elephant
+# (1.4x/1.15x/1.15x vs the elephant's 2x/1.2x/1.4x) since they lack siege value and are more
+# broadly available (no innovation/culture gate), but keep real mobility elephants don't have.
+# `@`-prefixed variables and @[...] expressions are strictly file-local in this engine
+# (confirmed via error.log: "Unknown variable"/"Malformed token" when referencing
+# another file's @-constant or bare script value inside @[...]) — every vanilla file
+# that needs heavy_cavalry_recruitment_cost etc. inside an @[...] expression first
+# redeclares its own local @ copy of the base constants (values matched against
+# common/script_values/00_men_at_arms_values.txt). Doing the same here, since
+# a plain named script-value object (value=/multiply=) was rejected by buy_cost's
+# "gold" field as the wrong type — that field wants a parse-time literal, not a
+# runtime-evaluated script value.
+@heavy_cavalry_recruitment_cost = 200
+@heavy_cavalry_low_maint_cost = 0.7
+@high_maint_mult = 3
+@heavy_cavalry_high_maint_cost = @[heavy_cavalry_low_maint_cost * high_maint_mult]
+
+tiger_cavalry_recruitment_cost = @[heavy_cavalry_recruitment_cost * 1.4]
+tiger_cavalry_low_maint_cost = @[heavy_cavalry_low_maint_cost * 1.15]
+tiger_cavalry_high_maint_cost = @[heavy_cavalry_high_maint_cost * 1.15]

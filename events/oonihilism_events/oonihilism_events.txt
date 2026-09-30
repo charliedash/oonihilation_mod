@@ -1,0 +1,23 @@
+﻿namespace = oonihilism_decisions
+
+# Embrace oonihilismism faith selection event
+oonihilism_decisions.02  = {
+	type = character_event
+	title = oonihilism_decisions.02.t
+	desc = oonihilism_decisions.02.desc
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+	theme = faith
+
+	option = { # oonihilism faith option 1
+		name = oonihilism_decisions.02.a
+		make_character_crypto_religionist_effect = { CRYPTO_RELIGION = faith:oonihilation }
+	}
+
+	option = { # Don't switch to any secret faith
+		name = false_conversion.0020.b # "No, no, the time is not yet right."
+		add_piety = miniscule_piety_gain # Refund piety
+	}
+}

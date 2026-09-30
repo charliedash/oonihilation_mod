@@ -1,0 +1,4 @@
+﻿oonihilism_holy_site_building_faith_trigger = {
+	global = OONIHILISM_HOLY_SITE_FAITH_ENABLED
+	global_not = NOT_OONIHILISM_HOLY_SITE_FAITH_ENABLED
+}

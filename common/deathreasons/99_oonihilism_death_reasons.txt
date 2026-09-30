@@ -1,0 +1,4 @@
+﻿death_tigers = {
+	public_knowledge = yes
+	icon = "death_murder.dds"
+}

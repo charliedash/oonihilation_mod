@@ -1,0 +1,134 @@
+﻿# Supporting effects for the Pet Tiger story cycle — see common/story_cycles/99_oonihilism_pet_tiger.txt.
+# Structurally modeled on vanilla's assign_eagle_gender_effect / remove_eagle_story_modifiers_effect /
+# assign_name_options_eagle_story_cycle_effect (common/scripted_effects/00_animal_effects.txt), simplified:
+# personality is a single permanent pick rather than a scaled/leveled trait. Naming now uses the same
+# free-text entry widget as vanilla (common/events/oonihilism_events/99_oonihilism_pet_tiger_events.txt).
+
+start_pet_tiger_story_cycle_effect = {
+	show_as_tooltip = {
+		add_character_modifier = {
+			modifier = tiger_story_modifier
+		}
+	}
+	hidden_effect = {
+		create_story = story_cycle_pet_tiger
+		# Permanent record of tiger ownership, unlike tiger_story_modifier/any_owned_story which both
+		# clear once the story ends (tiger dies or is let go) — used by tiger_wrangler_court_position's
+		# aptitude so the +30 bonus reflects having EVER had a pet tiger, not just currently owning one.
+		add_character_flag = had_pet_tiger_story
+	}
+}
+
+assign_tiger_gender_effect = {
+	save_temporary_scope_value_as = {
+		name = gender
+		value = flag:$GENDER$
+	}
+	if = {
+		limit = { scope:gender = flag:random }
+		hidden_effect = {
+			random_list = {
+				50 = {
+					set_variable = {
+						name = tiger_gender
+						value = flag:female
+					}
+				}
+				50 = {
+					set_variable = {
+						name = tiger_gender
+						value = flag:male
+					}
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			OR = {
+				scope:gender = flag:male
+				scope:gender = flag:female
+			}
+		}
+		set_variable = {
+			name = tiger_gender
+			value = flag:$GENDER$
+		}
+	}
+}
+
+# Coat pattern and eye color — pure flavor text, no per-color art (see coat/eye color loc
+# customizations in common/customizable_localization/99_oonihilism_pet_tiger_custom_loc.txt).
+# Set unwrapped (root = the story) in on_setup, mirroring dog's fur/eye color assignment pattern.
+assign_tiger_appearance_effect = {
+	random_list = {
+		40 = { set_variable = { name = tiger_coat value = flag:bengal } }
+		15 = { set_variable = { name = tiger_coat value = flag:golden } }
+		10 = { set_variable = { name = tiger_coat value = flag:white } }
+		5 = { set_variable = { name = tiger_coat value = flag:melanistic } }
+	}
+	random_list = {
+		50 = { set_variable = { name = tiger_eye_color value = flag:amber } }
+		25 = { set_variable = { name = tiger_eye_color value = flag:green } }
+		15 = { set_variable = { name = tiger_eye_color value = flag:blue } }
+		10 = { set_variable = { name = tiger_eye_color value = flag:gray } }
+	}
+}
+
+# Picks out unique name suggestions to show in the naming widget (see oonihilism_pet_tiger.0001,
+# common/events/oonihilism_events/99_oonihilism_pet_tiger_events.txt). Modeled on vanilla's
+# assign_name_options_eagle_story_cycle_effect (common/scripted_effects/00_animal_effects.txt).
+assign_tiger_name_options_effect = {
+	random_list = {
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:zawadi } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:zawadi }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:sungura } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:sungura }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:harimau } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:harimau }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:meihua } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:meihua }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:kiraz } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:kiraz }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:anansi } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:anansi }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:macan } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:macan }
+		}
+		10 = {
+			trigger = { NOT = { any_in_list = { variable = story_cycle_tiger_names this = flag:huo } } }
+			add_to_variable_list = { name = story_cycle_tiger_names target = flag:huo }
+		}
+	}
+}
+
+# Remove everything related to the story.
+remove_tiger_story_modifiers_effect = {
+	if = { limit = { has_character_modifier = tiger_story_modifier } remove_character_modifier = tiger_story_modifier }
+	if = { limit = { has_character_modifier = fierce_tiger_story_modifier } remove_character_modifier = fierce_tiger_story_modifier }
+	if = { limit = { has_character_modifier = loyal_tiger_story_modifier } remove_character_modifier = loyal_tiger_story_modifier }
+	if = { limit = { has_character_modifier = calm_tiger_story_modifier } remove_character_modifier = calm_tiger_story_modifier }
+	if = { limit = { has_character_modifier = cunning_tiger_story_modifier } remove_character_modifier = cunning_tiger_story_modifier }
+	if = { limit = { has_character_modifier = well_fed_tiger_modifier } remove_character_modifier = well_fed_tiger_modifier }
+	if = { limit = { has_character_modifier = feral_tiger_modifier } remove_character_modifier = feral_tiger_modifier }
+	remove_character_flag = tiger_is_fierce
+	remove_character_flag = tiger_is_loyal
+	remove_character_flag = tiger_is_calm
+	remove_character_flag = tiger_is_cunning
+	remove_variable = story_cycle_tiger_name
+	remove_variable = tiger_age_variable
+	remove_variable = tiger_gender
+}

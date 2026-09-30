@@ -1,0 +1,562 @@
+﻿# "Tiger Wrangler" — a court position unlocked by the Tiger Heralds tenet (tenet_adaptive_tigers,
+# common/religion/doctrine_types/99_core_tenets.txt), gated on its unlocks_tiger_wrangler parameter.
+# Structurally modeled on vanilla's keeper_of_swans_court_position (common/court_positions/types/00_court_positions.txt) —
+# a similar minor, non-scaling-tier "animal keeper" position — but its aptitude formula is instead
+# copied from champion_court_position (see the aptitude block's own comment below for exactly what
+# was and wasn't carried over), on the reasoning that handling war tigers demands the same physical
+# capability as being a bodyguard.
+
+tiger_wrangler_court_position = {
+	sort_order = 165
+	max_available_positions = 1
+	minimum_rank = county
+	skill = prowess
+
+	# Poses borrowed from vanilla's champion_court_position (EP1, common/court_positions/types/00_court_positions.txt):
+	# throne_room_two_handed_passive_1 for celestial-heritage courts, marshal_shield as the fallback.
+	# Background kept as our own (ep2_dog_kennels.dds) throughout.
+	court_position_asset = {
+		trigger = {
+			is_independent_ruler = yes
+			highest_held_title_tier >= tier_empire
+			government_has_flag = government_is_celestial
+		}
+		animation = throne_room_two_handed_passive_1
+		background = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	court_position_asset = {
+		trigger = {
+			is_independent_ruler = no
+			highest_held_title_tier <= tier_empire
+			government_has_flag = government_is_celestial
+		}
+		animation = throne_room_two_handed_passive_1
+		background = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	court_position_asset = {
+		trigger = { culture_has_east_asian_heritage_pillar_trigger = yes }
+		animation = throne_room_two_handed_passive_1
+		background = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	court_position_asset = {
+		animation = marshal_shield
+		background = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	opinion = {
+		value = ceremonial_court_position_opinion
+	}
+
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	# Base, prowess scaling, brave, craven, maimed, wounded, blind, and infirm all match vanilla's own
+	# champion_court_position (common/court_positions/types/00_court_positions.txt) exactly — a
+	# tiger wrangler needs the same physical capability a bodyguard does. Not copied: Champion's
+	# Blademaster/Shieldmaiden trait bonuses (no equivalent here) and its best_knight_position flag
+	# bonus (Champion-specific). The pet-tiger bonus is our own addition, now keyed off the permanent
+	# had_pet_tiger_story flag (start_pet_tiger_story_cycle_effect, common/scripted_effects/
+	# 99_oonihilism_pet_tiger_effects.txt) so it reflects EVER having had a pet tiger, not just
+	# currently owning one.
+	aptitude = {
+		value = 1
+		add = {
+			value = prowess
+			multiply = 4
+			max = 50
+			desc = court_position_skill_prowess
+		}
+		if = {
+			limit = { has_character_flag = had_pet_tiger_story }
+			add = {
+				value = 30
+				desc = tiger_wrangler_has_pet_tiger
+			}
+		}
+		if = {
+			limit = { has_trait = brave }
+			add = {
+				value = 20
+				desc = court_position_brave_trait
+			}
+		}
+		if = {
+			limit = { has_trait = craven }
+			add = {
+				value = -10
+				desc = court_position_craven_trait
+			}
+		}
+		if = {
+			limit = { has_trait = maimed }
+			add = {
+				value = -50
+				desc = court_position_maimed_trait
+			}
+		}
+		if = {
+			limit = { has_trait = wounded_3 }
+			add = {
+				value = -50
+				desc = court_position_wounded_3_trait
+			}
+		}
+		else_if = {
+			limit = { has_trait = wounded_2 }
+			add = {
+				value = -25
+				desc = court_position_wounded_2_trait
+			}
+		}
+		if = {
+			limit = { has_trait = blind }
+			add = {
+				value = -50
+				desc = court_position_blind_trait
+			}
+		}
+		if = {
+			limit = { has_trait = infirm }
+			add = {
+				value = -75
+				desc = court_position_infirm_trait
+			}
+		}
+
+		add = court_position_aptitude_high_penalty_value
+		add = general_aptitude_bonus
+	}
+
+	is_shown = {
+		is_landed_or_landless_administrative = yes
+		faith = { has_doctrine_parameter = unlocks_tiger_wrangler }
+		trigger_if = {
+			limit = {
+				is_ai = yes
+				highest_held_title_tier <= tier_county
+			}
+			always = no
+		}
+	}
+
+	# Is this an available position for this court? (root is court owner)
+	valid_position = {
+		is_landed_or_landless_administrative = yes
+		faith = { has_doctrine_parameter = unlocks_tiger_wrangler }
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			court_position_employee_shown_trigger = yes
+		}
+	}
+
+	valid_character = {
+		scope:employee = {
+			tiger_wrangler_validity_trigger = { EMPLOYER = scope:liege }
+		}
+	}
+
+	revoke_cost = { # root is the liege, no other scopes are passed here!
+		prestige = {
+			value = minor_court_position_prestige_revoke_cost
+			# Set to 0 via obligation hook
+			if = {
+				limit = {
+					court_position_obligation_hook_salary_trigger = {
+						POS = tiger_wrangler
+						LIEGE = root
+					}
+				}
+				multiply = 0
+			}
+			# Avoid AI prestige issues
+			if = {
+				limit = {
+					exists = this
+					is_ai = yes
+				}
+				multiply = 0
+			}
+			# Special case for events
+			if = {
+				limit = {
+					exists = this
+					has_character_flag = free_revoke_cost
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					scope:liege = { has_treasury = no }
+				}
+				add = tiger_wrangler_total_salary_value
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					scope:liege = { has_treasury = yes }
+				}
+				add = tiger_wrangler_total_salary_value
+			}
+		}
+		prestige = {
+			value = tiger_wrangler_prestige_salary_value
+		}
+		round = no
+	}
+
+	received_salary = {
+		gold = {
+			value = tiger_wrangler_total_salary_value
+		}
+		prestige = {
+			value = tiger_wrangler_prestige_salary_value
+		}
+		round = no
+	}
+
+	# 0/-6.25%/-12.5%/-18.75%/-25% across the 5 aptitude tiers.
+	scaling_employer_modifiers = {
+		terrible = {
+		}
+		poor = {
+			light_cavalry_maintenance_mult = -0.0625
+		}
+		average = {
+			light_cavalry_maintenance_mult = -0.125
+		}
+		good = {
+			light_cavalry_maintenance_mult = -0.1875
+		}
+		excellent = {
+			light_cavalry_maintenance_mult = -0.25
+		}
+	}
+
+	# Flat personal bonus for the position holder — handling war tigers hones both body and reputation.
+	# No custom_employer/employee_modifier_description here: both scaling_employer_modifiers above
+	# and this flat modifier already get accurate auto-generated tooltips, and a custom description
+	# is meant to add context the standard tooltip doesn't cover (see vanilla's own
+	# kennelperson_camp_officer_employer_custom_effect_description, which describes an unrelated
+	# unlock, not the knight_effectiveness_mult already shown) — restating the same numbers in
+	# prose was pure duplication.
+	modifier = {
+		prowess = 3
+		dread_gain_mult = 0.1
+	}
+
+	on_court_position_received = {
+		tiger_wrangler_title_accepted_effect = yes
+	}
+	on_court_position_revoked = {
+		tiger_wrangler_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		tiger_wrangler_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = tiger_wrangler_court_position
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50.
+	ai_position_score = {
+		value = 25
+		scope:liege = {
+			if = {
+				limit = { any_owned_story = { type = story_cycle_pet_tiger } }
+				add = 25
+			}
+		}
+		add = court_position_debt_considerations_value
+	}
+	ai_candidate_score = {
+		value = 25
+		add = scope:base_value
+		add = court_position_candidate_score_base_value
+		add = court_position_candidate_aptitude_value
+		if = { # To stop petitioned positions immediately being fired by the AI
+			limit = {
+				court_position_petition_ai_weight_trigger = { ROLE = tiger_wrangler }
+			}
+			add = 1000
+		}
+	}
+}
+
+# "Tiger Herald" — a camp officer (Adventurer/LAAMP-only, distinct from the regular
+# tiger_wrangler_court_position above) unlocked by the Tiger Cages camp building
+# (baggage_train_tiger_cages, common/domiciles/buildings/99_oonihilism_estate_buildings.txt,
+# via its camp_unlocks_tiger_herald_officer parameter). Structurally modeled on vanilla's
+# kennelperson_camp_officer (common/court_positions/types/00_camp_officers.txt) — same
+# EP3-only/landless-adventurer gating, same "exclusive job" validity pattern — with the employer
+# bonus set to light cavalry toughness/pursuit instead of knight_effectiveness_mult. Its aptitude
+# formula is champion_court_position-based, same as tiger_wrangler_court_position (see that
+# block's own comment below for exactly what was and wasn't carried over).
+tiger_herald_camp_officer = {
+	sort_order = 42
+	max_available_positions = 1
+	skill = martial
+
+	court_position_asset = {
+		animation = schadenfreude
+		background = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	opinion = {
+		value = regular_camp_officer_opinion
+	}
+
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	# Base, prowess scaling, brave, craven, maimed, wounded, blind, and infirm all match vanilla's
+	# champion_court_position exactly, same as tiger_wrangler_court_position above — plus, unlike the
+	# Wrangler, Champion's Blademaster/Shieldmaiden trait bonuses are copied here too. The martial
+	# skill line and positions_of_power_perk friend bonus are our own, kept from before.
+	aptitude = {
+		value = 1
+		if = {
+			limit = {
+				employer ?= {
+					has_government = landless_adventurer_government
+					has_perk = positions_of_power_perk
+				}
+				any_relation = { type = friend }
+			}
+			add = {
+				value = 5
+				desc = court_position_positions_of_power_perk_friend
+			}
+		}
+
+		add = {
+			value = martial
+			multiply = 2.5
+			max = 60
+			desc = court_position_skill_martial
+		}
+		add = {
+			value = prowess
+			multiply = 4
+			max = 50
+			desc = court_position_skill_prowess
+		}
+		if = {
+			limit = { has_trait = lifestyle_blademaster }
+			if = {
+				limit = {
+					has_trait_xp = {
+						trait = lifestyle_blademaster
+						value >= 100
+					}
+				}
+				add = {
+					value = 30
+					desc = court_position_blademaster_3_trait
+				}
+			}
+			else_if = {
+				limit = {
+					has_trait_xp = {
+						trait = lifestyle_blademaster
+						value >= 50
+					}
+				}
+				add = {
+					value = 15
+				}
+			}
+			else = {
+				add = {
+					value = 5
+					desc = court_position_blademaster_1_trait
+				}
+			}
+		}
+		if = {
+			limit = { has_trait = shieldmaiden }
+			add = {
+				value = 20
+				desc = court_position_shieldmaiden_trait
+			}
+		}
+		if = {
+			limit = { has_character_flag = had_pet_tiger_story }
+			add = {
+				value = 20
+				desc = tiger_wrangler_has_pet_tiger
+			}
+		}
+		if = {
+			limit = { has_trait = brave }
+			add = {
+				value = 20
+				desc = court_position_brave_trait
+			}
+		}
+		if = {
+			limit = { has_trait = craven }
+			add = {
+				value = -10
+				desc = court_position_craven_trait
+			}
+		}
+		if = {
+			limit = { has_trait = maimed }
+			add = {
+				value = -50
+				desc = court_position_maimed_trait
+			}
+		}
+		if = {
+			limit = { has_trait = wounded_3 }
+			add = {
+				value = -50
+				desc = court_position_wounded_3_trait
+			}
+		}
+		else_if = {
+			limit = { has_trait = wounded_2 }
+			add = {
+				value = -25
+				desc = court_position_wounded_2_trait
+			}
+		}
+		if = {
+			limit = { has_trait = blind }
+			add = {
+				value = -50
+				desc = court_position_blind_trait
+			}
+		}
+		if = {
+			limit = { has_trait = infirm }
+			add = {
+				value = -75
+				desc = court_position_infirm_trait
+			}
+		}
+
+		add = court_position_aptitude_high_penalty_value
+		add = general_aptitude_bonus
+	}
+
+	is_shown = {
+		has_ep3_dlc_trigger = yes
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+	}
+
+	valid_position = {
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+		custom_tooltip = {
+			text = tiger_herald_camp_officer_parameter_tt
+			domicile ?= { has_domicile_parameter = camp_unlocks_tiger_herald_officer }
+		}
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			is_incapable = no
+		}
+	}
+
+	valid_character = {
+		valid_camp_officer_trigger = {
+			OFFICER = tiger_herald
+		}
+	}
+
+	revoke_cost = {
+		prestige = {
+			value = minor_court_position_prestige_revoke_cost
+			# Set to 0 with Dynasty Perk Inner Circle
+			if = {
+				limit = {
+					dynasty ?= { has_dynasty_perk = fp2_coterie_legacy_1 }
+					employs_court_position = tiger_herald_camp_officer
+					any_court_position_holder = {
+						type = tiger_herald_camp_officer
+						exists = dynasty
+						house = prev.house
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		#officers have no salary
+	}
+
+	# These modifiers are employed based on what level the aptitude reaches (levels are defined as breakpoints)
+	scaling_employer_modifiers = {
+		terrible = {
+		}
+		poor = {
+			light_cavalry_toughness_mult = 0.05
+			light_cavalry_pursuit_mult = 0.05
+		}
+		average = {
+			light_cavalry_toughness_mult = 0.1
+			light_cavalry_pursuit_mult = 0.1
+		}
+		good = {
+			light_cavalry_toughness_mult = 0.15
+			light_cavalry_pursuit_mult = 0.15
+		}
+		excellent = {
+			light_cavalry_toughness_mult = 0.2
+			light_cavalry_pursuit_mult = 0.2
+		}
+	}
+
+	modifier = {
+		prowess = 1
+	}
+
+	on_court_position_received = {
+		tiger_herald_camp_officer_title_accepted_effect = yes
+	}
+	on_court_position_revoked = {
+		tiger_herald_camp_officer_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		tiger_herald_camp_officer_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = tiger_herald_camp_officer
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50.
+	ai_position_score = {
+		value = 500
+	}
+	ai_candidate_score = {
+		value = 500
+		add = court_position_candidate_score_base_value
+		add = court_position_candidate_aptitude_value
+	}
+}

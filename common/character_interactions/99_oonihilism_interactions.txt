@@ -1,0 +1,370 @@
+﻿# Standalone execution interaction unlocked by owning any of the "Tiger Cages" domicile
+# building upgrades (see common/domiciles/buildings/99_oonihilism_estate_buildings.txt),
+# functioning similarly to vanilla's "Toss to Dogs" (execution_kennel option inside
+# execute_prisoner_interaction, unlocked by employing kennelperson_camp_officer —
+# see common/character_interactions/00_prison_interactions.txt), but kept as its own
+# interaction rather than an added option inside vanilla's execute_prisoner_interaction,
+# since that (and its paired execute_prisoner_effect) would otherwise need to be
+# reproduced in full to add a new option to it.
+feed_to_tigers_interaction = {
+	interface_priority = 121
+	common_interaction = yes
+	category = interaction_category_prison
+	icon = icon_dead
+
+	desc = feed_to_tigers_interaction_desc
+
+	ai_targets = {
+		ai_recipients = prisoners
+	}
+
+	ai_frequency_by_tier = {
+		barony = 72
+		county = 12
+		duchy = 12
+		kingdom = 12
+		empire = 12
+		hegemony = 12
+	}
+
+	ai_potential = {
+		is_at_war = no
+	}
+
+	# Full replica of execute_prisoner_interaction's ai_will_do (00_prison_interactions.txt).
+	# Safe/sensible to reproduce in full here since none of it is content we're overriding —
+	# it's just our own interaction's AI logic, and every modifier below reads generic
+	# state (kinslaying doctrines, relations, struggle catalysts, MPO nomad flags, etc.)
+	# rather than anything specific to vanilla's own interaction key.
+	ai_will_do = {
+		base = 0
+
+		opinion_modifier = {
+			trigger = {
+				scope:actor != scope:recipient
+			}
+			opinion_target = scope:recipient
+			multiplier = -1
+		}
+
+		ai_value_modifier = {
+			ai_compassion = -1
+		}
+		modifier = {
+			add = -20
+			ai_compassion >= low_positive_ai_value
+			scope:recipient = { is_adult = no }
+		}
+		# Try to avoid Kinslaying
+		modifier = {
+			add = -20
+			scope:actor.dynasty = scope:recipient.dynasty
+			NOT = { faith = { has_doctrine = doctrine_kinslaying_any_dynasty_member_crime } }
+		}
+		modifier = {
+			add = -20
+			is_close_or_extended_family_of = scope:recipient
+			NOT = { faith = { has_doctrine = doctrine_kinslaying_extended_family_crime } }
+		}
+		modifier = {
+			add = -20
+			is_close_family_of = scope:recipient
+			NOT = { faith = { has_doctrine = doctrine_kinslaying_close_kin_crime } }
+		}
+		modifier = {
+			add = 50
+			has_execute_reason = scope:recipient
+			OR = {
+				has_trait = sadistic
+				has_trait = lunatic
+			}
+		}
+		modifier = { # Executing your way to new titles is a worthy cause...
+			add = 20
+			scope:actor = {
+				has_execute_reason = scope:recipient
+				ai_greed > 0
+				any_heir_title = { # Execute rulers you can inherit land from
+					holder ?= scope:recipient
+				}
+			}
+		}
+		modifier = { # Vengeful characters enjoy executing their rivals
+			add = 20
+			scope:actor = {
+				has_execute_reason = scope:recipient
+				ai_vengefulness >= medium_positive_ai_value
+				OR = {
+					has_relation_rival = scope:recipient # Execute rivals
+					has_relation_nemesis = scope:recipient # Execute rivals
+					scope:recipient = {
+						is_spouse_of = scope:actor
+						exposed_cheating_on_spouse_trigger = { SPOUSE = scope:actor }
+					}
+				}
+			}
+		}
+		modifier = { # Executing your way to new titles is a worthy cause... and very greedy characters need no execution reason
+			add = 35
+			scope:actor = {
+				ai_greed >= very_high_positive_ai_value
+				any_heir_title = { # Execute rulers you can inherit land from
+					holder ?= scope:recipient
+				}
+			}
+		}
+		modifier = { # Vengeful characters enjoy executing their rivals, and very vengeful characters need no execution reason
+			add = 35
+			scope:actor = {
+				ai_vengefulness >= very_high_positive_ai_value
+				OR = {
+					has_relation_rival = scope:recipient # Execute rivals
+					has_relation_nemesis = scope:recipient # Execute rivals
+					scope:recipient = {
+						is_spouse_of = scope:actor
+						exposed_cheating_on_spouse_trigger = { SPOUSE = scope:actor }
+					}
+				}
+			}
+		}
+		#Scope:target has caused internal strife in the realm
+		character_hates_scope_due_to_strife_modifier = { TARGET = scope:recipient }
+		modifier = {
+			factor = 0
+			scope:actor = {
+				NOR = { # Do not execute unless you have some sort of reason to do it
+					has_execute_reason = scope:recipient
+					has_relation_rival = scope:recipient # Execute rivals
+					has_relation_nemesis = scope:recipient # Execute rivals
+					scope:recipient = {
+						is_spouse_of = scope:actor
+						exposed_cheating_on_spouse_trigger = { SPOUSE = scope:actor }
+					}
+					any_heir_title = { # Execute rulers you can inherit land from
+						holder ?= scope:recipient
+					}
+					has_trait = lunatic # Self explanatory
+				}
+			}
+		}
+
+		# Agenda impact
+		modifier = {
+			scope:recipient = {
+				any_character_struggle = {
+					involvement = involved
+				}
+				is_important_or_vip_struggle_character = yes
+			}
+			add = {
+				value = 0
+				if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_important
+							}
+							has_character_flag = agenda_towards_escalation
+						}
+					}
+					add = 200
+				}
+				else_if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_important
+							}
+						}
+					}
+					add = -100
+				}
+			}
+		}
+
+		modifier = {
+			scope:recipient = {
+				any_character_struggle = {
+					involvement = involved
+				}
+				has_trait = fp3_struggle_supporter
+			}
+			add = {
+				value = 0
+				if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_supporter
+							}
+							has_trait = fp3_struggle_detractor
+						}
+					}
+					add = 200
+				}
+				else_if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_supporter
+							}
+						}
+					}
+					add = -100
+				}
+			}
+		}
+
+		#Nomads get the special beheading stuff
+		modifier = {
+			scope:actor = {
+				mpo_keep_prisoners_heads_trigger = yes
+				scope:recipient = {
+					is_ruler = yes
+					highest_held_title_tier >= tier_county
+					is_adult = yes
+				}
+				NOT = {
+					scope:recipient.top_liege ?= {
+						current_military_strength > scope:actor.current_military_strength
+						tier_difference = {
+							target = scope:actor
+							value >= -1
+						}
+					}
+				}
+			}
+			NOT = {
+				scope:actor.faith = { has_doctrine_parameter = human_sacrifice_active }
+			}
+			add = 10
+		}
+		#Boost further if actor if want to keep head
+		modifier = {
+			#want to keep head
+			scope:actor = {
+				mpo_keep_prisoners_heads_trigger = yes
+			}
+			scope:recipient = {
+				highest_held_title_tier >= tier_kingdom
+				is_adult = yes
+			}
+			NOT = {
+				scope:actor.faith = { has_doctrine_parameter = human_sacrifice_active }
+			}
+			add = 20
+		}
+		#Boost further if actor wants to be scary
+		modifier = {
+			#want to keep head
+			scope:actor = {
+				mpo_keep_prisoners_heads_trigger = yes
+				scope:recipient = {
+					is_ruler = yes
+					highest_held_title_tier >= tier_county
+					is_adult = yes
+				}
+				OR = {
+					has_trait = conqueror
+					has_trait = greatest_of_khans
+					is_gurkhan = yes
+				}
+			}
+			NOT = {
+				scope:actor.faith = { has_doctrine_parameter = human_sacrifice_active }
+			}
+			add = 30
+		}
+
+		modifier = {
+			scope:recipient = {
+				any_character_struggle = {
+					involvement = involved
+				}
+				has_trait = fp3_struggle_detractor
+			}
+			add = {
+				value = 0
+				if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_detractor
+							}
+							has_trait = fp3_struggle_supporter
+						}
+					}
+					add = 200
+				}
+				else_if = {
+					limit = {
+						scope:actor = {
+							any_character_struggle = {
+								phase_has_catalyst = catalyst_execute_detractor
+							}
+						}
+					}
+					add = -100
+				}
+			}
+		}
+		modifier = {
+			add = 200
+			scope:actor.faith = {
+				has_doctrine = tenet_extinction_of_dharma
+			}
+			scope:recipient.faith = {
+				religion = root.faith.religion
+				NOT = {
+					has_doctrine = tenet_extinction_of_dharma
+				}
+			}
+		}
+		#don't kill prisoners that are tied with a prison break contract, we don't want it invalidating all the time
+		modifier = {
+			factor = 0
+			scope:recipient = {
+				has_character_flag = being_prisonbroken_by_laamp
+			}
+		}
+	}
+
+	is_shown = {
+		scope:actor = {
+			domicile ?= {
+				OR = {
+					has_domicile_building_or_higher = stable_tiger_cages_04
+					has_domicile_building_or_higher = east_asian_estate_stable_tiger_cages_04
+					has_domicile_building_or_higher = japanese_manor_stable_tiger_cages_04
+					has_domicile_building_or_higher = horse_breeder_yurt_tiger_cages_04
+					has_domicile_building = baggage_train_tiger_cages
+				}
+			}
+		}
+		scope:recipient = {
+			is_imprisoned_by = scope:actor
+		}
+	}
+
+	on_accept = {
+		execute_opinion_effect = { VICTIM = scope:recipient EXECUTIONER = scope:actor }
+
+		scope:recipient = {
+			death = {
+				death_reason = death_tigers
+				killer = scope:actor
+			}
+		}
+
+		scope:actor = {
+			hidden_effect = {
+				send_interface_message = {
+					type = event_prison_neutral
+					title = msg_execute_prisoner
+					right_icon = scope:recipient
+					custom_tooltip = msg_execute_prisoner_desc
+				}
+			}
+		}
+	}
+}

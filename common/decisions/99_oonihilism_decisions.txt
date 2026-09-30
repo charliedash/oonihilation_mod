@@ -1,0 +1,59 @@
+﻿###################################
+# Embrace oonihilism
+# Adopt a oonihilism faith in secret, provided one of your counties follows the chosen faith
+###################################
+embrace_oonihilism_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/fp3_temple.dds"
+	}
+	desc = embrace_oonihilism_decision_desc
+	selection_tooltip = embrace_oonihilism_decision_tooltip
+	sort_order = 120
+
+	is_shown = {
+		# Narratively, this decision is about embracing the faith of your ancestors over newer "modern" faiths
+		# Therefore, this decision should not be available to Zoroastrians looking to change their sect
+		NOT = { has_religion = religion:oonihilism_religion }
+		current_date <= 960.1.1
+	}
+
+	is_valid = {
+		# Don't grant more than 1 secret faith at once
+		custom_tooltip = {
+			text = no_secret_faith_tt
+			NOT = { exists = secret_faith }
+		}
+		custom_tooltip = {
+			text = year_960_tt
+			current_date <= 960.1.1
+		}
+		NOT = { has_religion = religion:oonihilism_religion }
+	}
+
+	is_valid_showing_failures_only = {
+		is_physically_able_adult = yes
+	}
+
+	effect = {
+		custom_tooltip = embrace_oonihilism_decision.tt
+		trigger_event = oonihilism_decisions.02
+	}
+
+	cost = { piety = major_piety_value }
+
+	# AI never takes this decision (base = -1000 below), but leaving ai_check_interval unset
+	# still logs a warning ("negative or unset, setting to 0 instead") — a long interval avoids
+	# that without actually mattering, since the AI would never pass ai_will_do anyway.
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
+
+	ai_will_do = {
+		base = -1000
+	}
+}

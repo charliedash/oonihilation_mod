@@ -1,0 +1,224 @@
+﻿# Resolves the pet tiger's name. TigerStoryName (type=character) is used from event text via
+# [ROOT.Char.Custom('TigerStoryName')] (ROOT there is the owner, where the name variable actually
+# lives); TigerStoryNameAll (type=all) is used from the story's own custom_string_key
+# (TIGER_INFORMATION_STRING) via [Story.Custom(...)], where ROOT is the story itself. Modeled on
+# vanilla's EagleStoryName / EagleStoryNameAll (common/customizable_localization/00_pet_custom_loc.txt).
+# Only the name resolver is needed since our flavor text avoids gendered pronouns.
+# The naming event (oonihilism_pet_tiger.0001) allows free text, stored as flag:custom — the
+# actual typed text is retrieved via GetLocalizedText, not through these flag branches (see
+# tiger_name / tiger_name_all in the main loc file), mirroring vanilla's cat_name / cat_name_all.
+#
+# BUGFIX (exists-guard): every branch below pairs its flag comparison with an explicit
+# `exists = var:...` check first, exactly like vanilla's own EagleStoryName/DogStoryName do in
+# every single branch (e.g. "trigger = { exists = var:story_cycle_eagle_name
+# var:story_cycle_eagle_name = flag:custom }"). Comparing an unset variable straight to a flag
+# apparently fails to resolve any branch at all, rather than just evaluating that one branch false.
+#
+# BUGFIX (full-key flags): the 8 named branches compare against flag:tiger_name_zawadi etc. — the
+# FULL localization_key (matching each preset's `default` block in oonihilism_pet_tiger.0001's
+# widget, events/oonihilism_events/99_oonihilism_pet_tiger_events.txt) — not the short flag:zawadi
+# form used internally by story_cycle_tiger_names to filter which suggestions are shown. Confirmed
+# against vanilla's own EagleStoryName, which likewise compares against flag:eagle_name_lyra, not
+# flag:lyra: clicking a widget preset sets the character's variable to flag:<localization_key>, the
+# full form. Using the short form here meant every human preset pick failed all 8 named branches
+# and fell straight to the fallback text. The AI immediate-block pick (a short list-flag) is
+# explicitly translated to the matching full-key flag before being written to the character.
+
+TigerStoryName = {
+	type = character
+
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:custom
+		}
+		localization_key = tiger_name
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_zawadi
+		}
+		localization_key = tiger_name_zawadi
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_sungura
+		}
+		localization_key = tiger_name_sungura
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_harimau
+		}
+		localization_key = tiger_name_harimau
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_meihua
+		}
+		localization_key = tiger_name_meihua
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_kiraz
+		}
+		localization_key = tiger_name_kiraz
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_anansi
+		}
+		localization_key = tiger_name_anansi
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_macan
+		}
+		localization_key = tiger_name_macan
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_huo
+		}
+		localization_key = tiger_name_huo
+	}
+	# Safety net: if nothing above matched for any reason, never render blank.
+	text = {
+		localization_key = tiger_name_fallback
+		fallback = yes
+	}
+}
+
+# Coat/eye color, mirroring vanilla's DogFurColor/DogEyeColor (both type=character, resolved via
+# any_owned_story since the variable lives on the story itself — see assign_tiger_appearance_effect,
+# common/scripted_effects/99_oonihilism_pet_tiger_effects.txt). any_owned_story itself already acts
+# as the existence guard here (it's false if no such story/variable exists), so no separate exists
+# check is needed the way the owner-scoped name variable above needs one.
+TigerCoatColor = {
+	type = character
+
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_coat = flag:bengal } }
+		localization_key = tiger_coat_bengal
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_coat = flag:golden } }
+		localization_key = tiger_coat_golden
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_coat = flag:white } }
+		localization_key = tiger_coat_white
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_coat = flag:melanistic } }
+		localization_key = tiger_coat_melanistic
+	}
+}
+
+TigerEyeColor = {
+	type = character
+
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_eye_color = flag:amber } }
+		localization_key = eye_color_amber
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_eye_color = flag:green } }
+		localization_key = eye_color_green
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_eye_color = flag:blue } }
+		localization_key = eye_color_blue
+	}
+	text = {
+		trigger = { any_owned_story = { type = story_cycle_pet_tiger var:tiger_eye_color = flag:gray } }
+		localization_key = eye_color_gray
+	}
+}
+
+TigerStoryNameAll = {
+	type = all
+
+	text = {
+		trigger = {
+			NOT = { exists = var:story_cycle_tiger_name }
+		}
+		localization_key = not_yet_chosen
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:custom
+		}
+		localization_key = tiger_name_all
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_zawadi
+		}
+		localization_key = tiger_name_zawadi
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_sungura
+		}
+		localization_key = tiger_name_sungura
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_harimau
+		}
+		localization_key = tiger_name_harimau
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_meihua
+		}
+		localization_key = tiger_name_meihua
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_kiraz
+		}
+		localization_key = tiger_name_kiraz
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_anansi
+		}
+		localization_key = tiger_name_anansi
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_macan
+		}
+		localization_key = tiger_name_macan
+	}
+	text = {
+		trigger = {
+			exists = var:story_cycle_tiger_name
+			var:story_cycle_tiger_name = flag:tiger_name_huo
+		}
+		localization_key = tiger_name_huo
+	}
+	# Safety net: if nothing above matched for any reason, never render blank.
+	text = {
+		localization_key = tiger_name_fallback
+		fallback = yes
+	}
+}

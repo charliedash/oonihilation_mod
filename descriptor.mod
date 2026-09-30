@@ -1,0 +1,7 @@
+version="2.1"
+tags={
+	"Religion"
+}
+name="Oonihilation"
+supported_version="1.19.0.6"
+remote_file_id="3583942801"

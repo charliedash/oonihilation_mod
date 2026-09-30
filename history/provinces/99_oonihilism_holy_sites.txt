@@ -1,0 +1,16 @@
+﻿8892 = {	# NANHAI
+	culture = han
+	religion = dhyana
+	holding = castle_holding
+
+	1.1.1 = {
+		# Places the ruined tier-1 mausoleum at game start, matching how vanilla
+		# places hagia_sophia_01 for Constantinople (see k_thessalonika.txt). Set
+		# during history loading, well before on_game_start's effect runs, so
+		# vanilla's universal fallback (every_religion_global, no religion filter)
+		# never gets a chance to claim the slot with holy_site_other_grand_temple_01.
+		# Repairing it into holy_site_oonihilism_temple_02 (its next_building) is a
+		# normal paid upgrade the player has to construct.
+		special_building = holy_site_oonihilism_temple_01
+	}
+}

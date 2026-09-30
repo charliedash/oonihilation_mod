@@ -1,0 +1,55 @@
+﻿# Pet Tiger story cycle modifiers — see common/story_cycles/99_oonihilism_pet_tiger.txt and
+# common/decisions/99_oonihilism_pet_tiger_decisions.txt (adopt_pet_tiger_decision).
+# Modeled on vanilla's story_cycle_pet_eagle/pet_dog modifier sets (00_story_cycle_pet_animal_modifiers.txt),
+# reskinned to the Tiger Heralds tenet's combat/dread theme instead of eagle's diplomacy/stewardship
+# or dog's plain prowess/diplomacy. Icons reuse cat_positive/cat_negative — a generic "pet animal"
+# icon bucket (vanilla itself reuses bird_positive/bird_negative for eagles, a different animal,
+# rather than commissioning a dedicated icon per pet species) — a tiger being a big cat besides.
+
+# Always active for the life of the story (see on_setup).
+tiger_story_modifier = {
+	icon = cat_positive
+	prowess = 2
+	dread_gain_mult = 0.1
+}
+
+# One of the following four is assigned permanently via oonihilism_pet_tiger.0004 ("A Glimpse of Its
+# Nature", common/events/oonihilism_events/99_oonihilism_pet_tiger_events.txt), once the tiger has a
+# name, mirroring eagle's personality system but as a fixed pick rather than a scaled/leveled trait.
+fierce_tiger_story_modifier = {
+	icon = cat_positive
+	prowess = 1
+	martial = 1
+	attacker_advantage = 2
+}
+
+loyal_tiger_story_modifier = {
+	icon = cat_positive
+	diplomacy = 1
+	monthly_prestige = 0.5
+	legitimacy_gain_mult = 0.1
+}
+
+calm_tiger_story_modifier = {
+	icon = cat_positive
+	stress_loss_mult = 0.2
+	health = 0.05
+}
+
+cunning_tiger_story_modifier = {
+	icon = cat_positive
+	intrigue = 2
+	monthly_lifestyle_xp_gain_mult = 0.05
+}
+
+# Temporary modifiers granted/removed by specific ongoing random events (see
+# common/on_action/99_oonihilism_pet_tiger_on_actions.txt).
+well_fed_tiger_modifier = {
+	icon = cat_positive
+	stress_loss_mult = 0.1
+}
+
+feral_tiger_modifier = {
+	icon = cat_negative
+	opinion_of_liege = -5
+}

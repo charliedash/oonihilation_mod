@@ -1,0 +1,272 @@
+﻿oonihilism_religion = {
+	family = rf_eastern
+	graphical_faith = dharmic_gfx
+
+	doctrine_background_icon = core_tenet_banner_eastern.dds
+	doctrine = eastern_hostility_doctrine
+
+	#Main Group
+	doctrine = doctrine_polytheist
+	doctrine = doctrine_temporal_head
+	doctrine = doctrine_gender_equal
+	doctrine = doctrine_pluralism_pluralistic
+	doctrine = doctrine_theocracy_lay_clergy
+
+	#Marriage
+	doctrine = doctrine_concubines
+	doctrine = doctrine_divorce_allowed
+	doctrine = doctrine_bastardry_legitimization
+	doctrine = doctrine_consanguinity_unrestricted
+
+	#Crimes
+	doctrine = doctrine_homosexuality_accepted
+	doctrine = doctrine_adultery_men_accepted
+	doctrine = doctrine_adultery_women_accepted
+	doctrine = doctrine_kinslaying_any_dynasty_member_crime
+	doctrine = doctrine_deviancy_shunned
+	doctrine = doctrine_witchcraft_virtuous
+
+	#Clerical Functions
+	doctrine = doctrine_clerical_function_taxation
+	doctrine = doctrine_clerical_gender_either
+	doctrine = doctrine_clerical_marriage_allowed
+	doctrine = doctrine_clerical_succession_temporal_appointment
+
+	#Special Doctrine for Eastern Syncretism
+	doctrine = special_doctrine_is_eastern_faith
+
+	#Special Doctrine for Immaterial Harmony
+	doctrine = special_doctrine_immaterial_harmony
+
+	#Allow pilgrimages
+	doctrine = doctrine_pilgrimage_encouraged
+
+	#Funeral tradition
+	doctrine = doctrine_funeral_cremation
+
+	#Coronation tradition
+	doctrine = doctrine_anointment_permitted
+
+	traits = {
+		virtues = {
+			diligent
+			eccentric
+			temperate
+		}
+		sins = {
+			lazy
+			fickle
+			gluttonous
+		}
+	}
+
+	reserved_male_names = {
+		Andrew Antoninus Bartolomeus Benedict Christian Christopher Clement Constantine David Demetrius Eustace George Gregory
+		Hans Isaac Joakim Jacob John Jordan Joseph Laurence Magnus Marcus Martin Matthew Michael Nicholas Patrick Paul Peter Philip
+		Salvador Samuel Sebastian Simon Stephen Thomas Abraham Alexander Daniel Job Joshua Cyrus Luke Zachariah
+	}
+	reserved_female_names = {
+		Anna Beatrice Benedicta Brigid Catherine Cecilia Christina Clementia Constance Dorothy Elisabeth Joan Judith Juliana Helen
+		Magdalena Margaret Maria Marine Patricia Philippa Rachel Sarah Sophia Stephania
+	}
+
+	custom_faith_icons = {
+		custom_faith_1 custom_faith_2 custom_faith_3 custom_faith_4 custom_faith_5 custom_faith_6 custom_faith_7 custom_faith_8 custom_faith_9 custom_faith_10 dualism_custom_1 zoroastrian_custom_1 zoroastrian_custom_2 buddhism_custom_1 buddhism_custom_2 buddhism_custom_3 buddhism_custom_4 oonihilism_custom_1 yazidi_custom_1 sunni_custom_2 sunni_custom_3 sunni_custom_4 muhakkima_1 muhakkima_2 muhakkima_4 muhakkima_5 muhakkima_6 judaism_custom_1 custom_faith_fp1_fenrir custom_faith_fp1_irminsul custom_faith_fp1_jormungandr custom_faith_fp1_odins_ravens custom_faith_fp1_runestone_moon custom_faith_fp1_thors_hammer custom_faith_fp1_valknut custom_faith_fp1_yggdrasil custom_faith_boromian_circles custom_faith_lotus custom_faith_aum_tibetan custom_faith_pentagram custom_faith_pentagram_inverted custom_faith_burning_bush custom_faith_allah custom_faith_gankyil custom_faith_eye_of_providence custom_faith_dove custom_faith_ichthys custom_faith_lamb custom_faith_black_sheep custom_faith_ankh custom_faith_chi_rho custom_faith_hamsa custom_faith_cool_s
+	}
+
+	# holy_order_names = {
+	# 	{ name = "holy_order_knights_of_the_chalice" }
+	#	{ name = "holy_order_order_of_the_holy_communion" }
+	#	{ name = "holy_order_knights_of_the_first_gospel" }
+	#	{ name = "holy_order_guardians_of_the_shroud" }
+	#	{ name = "holy_order_knights_of_the_reliquary" }
+	#	{ name = "holy_order_warriors_of_the_cross" }
+	#	{ name = "holy_order_christian" coat_of_arms = "ho_christian" }
+	# }
+
+	# holy_order_maa = {  }
+
+	localization = {
+		HighGodName = oonihilism_high_god_name
+		HighGodName2 = oonihilism_high_god_name_2
+		HighGodNamePossessive = oonihilism_high_god_name_possessive
+		HighGodNameSheHe = CHARACTER_SHEHE_IT
+		HighGodHerselfHimself = CHARACTER_ITSELF
+		HighGodHerHis = CHARACTER_HERHIS_ITS
+		HighGodNameAlternate = oonihilism_high_god_name_alternate
+		HighGodNameAlternatePossessive = oonihilism_high_god_name_alternate_possessive
+
+		#Creator
+		CreatorName = oonihilism_creator_god_name
+		CreatorNamePossessive = oonihilism_creator_god_name_possessive
+		CreatorSheHe = CHARACTER_SHEHE_HE
+		CreatorHerHis = CHARACTER_HERHIS_HIS
+		CreatorHerHim = CHARACTER_HERHIM_HIM
+
+		#HealthGod
+		HealthGodName = oonihilism_health_god_name
+		HealthGodNamePossessive = oonihilism_health_god_name_possessive
+		HealthGodSheHe = CHARACTER_SHEHE_HE
+		HealthGodHerHis = CHARACTER_HERHIS_HIS
+		HealthGodHerHim = CHARACTER_HERHIM_HIM
+		
+		#FertilityGod
+		FertilityGodName = oonihilism_fertility_god_name
+		FertilityGodNamePossessive = oonihilism_fertility_god_name_possessive
+		FertilityGodSheHe = CHARACTER_SHEHE_HE
+		FertilityGodHerHis = CHARACTER_HERHIS_HIS
+		FertilityGodHerHim = CHARACTER_HERHIM_HIM
+
+		#WealthGod
+		WealthGodName = oonihilism_wealth_god_name
+		WealthGodNamePossessive = oonihilism_wealth_god_name_possessive
+		WealthGodSheHe = CHARACTER_SHEHE_HE
+		WealthGodHerHis = CHARACTER_HERHIS_HIS
+		WealthGodHerHim = CHARACTER_HERHIM_HIM
+
+		#HouseholdGod
+		HouseholdGodName = oonihilism_household_god_name
+		HouseholdGodNamePossessive = oonihilism_household_god_name_possessive
+		HouseholdGodSheHe = CHARACTER_SHEHE_HE
+		HouseholdGodHerHis = CHARACTER_HERHIS_HIS
+		HouseholdGodHerHim = CHARACTER_HERHIM_HIM
+
+		#FateGod
+		FateGodName = oonihilism_fate_god_name
+		FateGodNamePossessive = oonihilism_fate_god_name_possessive
+		FateGodSheHe = CHARACTER_SHEHE_IT
+		FateGodHerHis = CHARACTER_HERHIS_ITS
+		FateGodHerHim = CHARACTER_HERHIM_IT
+
+		#KnowledgeGod
+		KnowledgeGodName = oonihilism_knowledge_god_name
+		KnowledgeGodNamePossessive = oonihilism_knowledge_god_name_possessive
+		KnowledgeGodSheHe = CHARACTER_SHEHE_HE
+		KnowledgeGodHerHis = CHARACTER_HERHIS_HIS
+		KnowledgeGodHerHim = CHARACTER_HERHIM_HIM
+
+		#WarGod
+		WarGodName = oonihilism_war_god_name
+		WarGodNamePossessive = oonihilism_war_god_name_possessive
+		WarGodSheHe = CHARACTER_SHEHE_HE
+		WarGodHerHis = CHARACTER_HERHIS_HIS
+		WarGodHerHim = CHARACTER_HERHIM_HIM
+
+		#TricksterGod
+		TricksterGodName = oonihilism_trickster_god_name
+		TricksterGodNamePossessive = oonihilism_trickster_god_name_possessive
+		TricksterGodSheHe = CHARACTER_SHEHE_SHE
+		TricksterGodHerHis = CHARACTER_HERHIS_HER
+		TricksterGodHerHim = CHARACTER_HERHIM_HER
+
+		#NightGod
+		NightGodName = oonihilism_night_god_name
+		NightGodNamePossessive = oonihilism_night_god_name_possessive
+		NightGodSheHe = CHARACTER_SHEHE_SHE
+		NightGodHerHis = CHARACTER_HERHIS_HER
+		NightGodHerHim = CHARACTER_HERHIM_HER
+
+		#WaterGod
+		WaterGodName = oonihilism_water_god_name
+		WaterGodNamePossessive = oonihilism_water_god_name_possessive
+		WaterGodSheHe = CHARACTER_SHEHE_HE
+		WaterGodHerHis = CHARACTER_HERHIS_HIS
+		WaterGodHerHim = CHARACTER_HERHIM_HIM
+
+		PantheonTerm = religion_the_gods
+		PantheonTerm2 = religion_the_gods_2
+		PantheonTerm3 = religion_the_gods_3
+		PantheonTermHasHave = pantheon_term_have
+		GoodGodNames = {
+			oonihilism_good_god_name_three_pure_ones
+			oonihilism_wealth_god_name
+			oonihilism_health_god_name
+			oonihilism_knowledge_god_name
+			oonihilism_war_god_name
+			oonihilism_night_god_name
+			oonihilism_water_god_name
+		}
+		DevilName = oonihilism_devil_name
+		DevilNamePossessive = oonihilism_devil_name_possessive
+		DevilSheHe = CHARACTER_SHEHE_IT
+		DevilHerHis = CHARACTER_HERHIS_ITS
+		DevilHerselfHimself = CHARACTER_ITSELF
+		EvilGodNames = { oonihilism_devil_name }
+		HouseOfWorship = oonihilism_house_of_worship
+		HouseOfWorship2 = oonihilism_house_of_worship_2
+		HouseOfWorship3 = oonihilism_house_of_worship_3
+		HouseOfWorshipPlural = oonihilism_house_of_worship_plural
+		ReligiousSymbol = oonihilism_religious_symbol
+		ReligiousSymbol2 = oonihilism_religious_symbol_2
+		ReligiousSymbol3 = oonihilism_religious_symbol_3
+		ReligiousText = oonihilism_religious_text
+		ReligiousText2 = oonihilism_religious_text_2
+		ReligiousText3 = oonihilism_religious_text_3
+		ReligiousHeadName = oonihilism_religious_head_title
+		ReligiousHeadTitleName = oonihilism_religious_head_title_name
+		DevoteeMale = oonihilism_devotee_male
+		DevoteeMalePlural = oonihilism_devotee_male_plural
+		DevoteeFemale = oonihilism_devotee_female
+		DevoteeFemalePlural = oonihilism_devotee_female_plural
+		DevoteeNeuter = oonihilism_devotee_neuter
+		DevoteeNeuterPlural = oonihilism_devotee_neuter_plural
+		PriestMale = oonihilism_priest_male
+		PriestMalePlural = oonihilism_priest_male_plural
+		PriestFemale = oonihilism_priest_female
+		PriestFemalePlural = oonihilism_priest_female_plural
+		PriestNeuter = oonihilism_priest_neuter
+		PriestNeuterPlural = oonihilism_priest_neuter_plural
+		AltPriestTermPlural = oonihilism_alternate_priest_term_plural
+		BishopMale = oonihilism_priest_male
+		BishopMalePlural = oonihilism_priest_male_plural
+		BishopFemale = oonihilism_priest_female
+		BishopFemalePlural = oonihilism_priest_female_plural
+		BishopNeuter = oonihilism_priest_neuter
+		BishopNeuterPlural = oonihilism_priest_neuter_plural
+
+		DivineRealm = oonihilism_divine_realm
+		DivineRealm2 = oonihilism_divine_realm_2
+		DivineRealm3 = oonihilism_divine_realm_3
+		PositiveAfterLife = oonihilism_positive_afterlife
+		PositiveAfterLife2 = oonihilism_positive_afterlife_2
+		PositiveAfterLife3 = oonihilism_positive_afterlife_3
+		NegativeAfterLife = oonihilism_negative_afterlife
+		NegativeAfterLife2 = oonihilism_negative_afterlife_2
+		NegativeAfterLife3 = oonihilism_negative_afterlife_3
+		DeathDeityName = paganism_death_deity_name
+		DeathDeityNamePossessive = paganism_death_deity_name_possessive
+		DeathDeitySheHe = CHARACTER_SHEHE_IT
+		DeathDeityHerHis = CHARACTER_HERSHIS_ITS
+		DeathDeityHerHim = CHARACTER_HERHIM_IT
+		WitchGodName = witchgodname_oonihilism_daode_tianzun
+		WitchGodNamePossessive = witchgodname_oonihilism_daode_tianzun_possessive
+		WitchGodHerHis = CHARACTER_HERHIS_HER
+		WitchGodSheHe = CHARACTER_SHEHE_SHE
+		WitchGodHerHim = CHARACTER_HERHIM_HER
+		WitchGodMistressMaster = mistress
+		WitchGodMotherFather = mother
+
+		GHWName = ghw_purification
+		GHWNamePlural = ghw_purifications
+	}
+
+	faiths = {
+		oonihilation = {
+			color = { 0 90 65 }
+			icon = oonihilation_icon
+
+			holy_site = armagh
+			holy_site = uppsala
+			holy_site = constantinople
+			holy_site = adur_burzen_mihr
+			holy_site = khotan
+			holy_site = guangzhou
+			holy_site = mataram
+			holy_site = jenne_jeno
+
+			doctrine = tenet_oon_marriage
+			doctrine = tenet_experienced_traders
+			doctrine = tenet_adaptive_tigers
+		}
+	}
+}

@@ -1,0 +1,29 @@
+﻿# Grants the Littermates tenet's "massive piety for marrying close family" bonus regardless of the
+# faith's marriage-type doctrine (monogamy/polygamy/concubines) — marriage only, deliberately not
+# concubinage. Vanilla's own version of this bonus (divine_marriage_piety_gain_active,
+# common/religion/doctrine_types/99_core_tenets.txt — tenet_oon_marriage) only ever pays out through
+# marriage_effect.2001, an event whose own `trigger` requires
+# `faith = { has_doctrine_parameter = marriage_event }` — a parameter ONLY doctrine_monogamy sets
+# (common/religion/doctrine_types/20_doctrines.txt). Since Oonihilation now uses doctrine_concubines,
+# that event would never fire and the bonus would be silently lost. This re-implements the same
+# piety payout directly on the universal on_marriage on_action (appended alongside vanilla's own
+# handler there, common/on_action/marriage_concubinage.txt — on_actions are one of the few database
+# types LIOS doesn't override, so this doesn't touch or replace vanilla's own version), so it still
+# fires for a primary spouse under any marriage-type doctrine.
+
+on_marriage = {
+	effect = {
+		if = {
+			limit = {
+				faith = { has_doctrine_parameter = divine_marriage_piety_gain_active }
+				scope:spouse = { is_close_family_of = root }
+			}
+			add_piety = massive_piety_value
+			send_interface_message = {
+				type = event_religious_good_text
+				title = oonihilism_close_kin_marriage_piety_title
+				desc = oonihilism_close_kin_marriage_piety_desc
+			}
+		}
+	}
+}

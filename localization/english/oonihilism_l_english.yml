@@ -1,0 +1,340 @@
+﻿l_english:
+ ##Common Oonihilism Localization
+ oonihilism_religion:0 "Oonihilism"
+ oonihilism_religion_adj:0 "Oonihilist"
+ oonihilism_religion_adherent:0 "Oonihilist"
+ oonihilism_religion_adherent_plural:0 "Oonihilists"
+ oonihilism_religion_desc:0 "Don't look at my eel!"
+
+ oonihilism_high_god_name:0 "Guang Guang"
+ oonihilism_high_god_name_2:0 "$oonihilism_high_god_name$" # Optional translation alt
+ oonihilism_high_god_name_possessive:0 "Guang Guang's"
+ oonihilism_high_god_name_alternate:0 "the EOMM"
+ oonihilism_high_god_name_alternate_possessive:0 "the EOMM"
+ oonihilism_good_god_name_three_pure_ones:0 "Three Pure Ones"
+ oonihilism_devil_name:0 "disharmony"
+ oonihilism_devil_name_possessive:0 "disharmony's"
+ oonihilism_house_of_worship:0 "$paganism_house_of_worship$"
+ oonihilism_house_of_worship_2:0 "$paganism_house_of_worship_2$" # Optional translation alt
+ oonihilism_house_of_worship_3:0 "$paganism_house_of_worship_3$" # Optional translation alt
+ oonihilism_house_of_worship_plural:0 "$paganism_house_of_worship_plural$"
+ oonihilism_religious_symbol:0 "The Oonsong"
+ oonihilism_religious_symbol_2:0 "$oonihilism_religious_symbol$" # Optional translation alt
+ oonihilism_religious_symbol_3:0 "$oonihilism_religious_symbol$" # Optional translation alt
+ oonihilism_religious_text:0 "Oonibus"
+ oonihilism_religious_text_2:0 "$oonihilism_religious_text$" # Optional translation alt
+ oonihilism_religious_text_3:0 "$oonihilism_religious_text$" # Optional translation alt
+ oonihilism_religious_head_title:0 "Oonihilator"
+ oonihilism_religious_head_title_name:0 "One Above All"
+ oonihilism_devotee_male:0 "$oonihilism_devotee_neuter$"
+ oonihilism_devotee_male_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_devotee_female:0 "$oonihilism_devotee_neuter$"
+ oonihilism_devotee_female_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_devotee_neuter:0 "oonihilist"
+ oonihilism_devotee_neuter_plural:0 "oonihilists"
+ oonihilism_priest_male:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_male_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_priest_female:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_female_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_priest_neuter:0 "$oonihilism_devotee_neuter$"
+ oonihilism_priest_neuter_plural:0 "$oonihilism_devotee_neuter_plural$"
+ oonihilism_alternate_priest_term_plural:0 "Herald"
+ oonihilism_divine_realm:0 "the Oon"
+ oonihilism_divine_realm_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_divine_realm_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_positive_afterlife:0 "$oonihilism_divine_realm$"
+ oonihilism_positive_afterlife_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_positive_afterlife_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_negative_afterlife:0 "$oonihilism_divine_realm$"
+ oonihilism_negative_afterlife_2:0 "$oonihilism_divine_realm$" # Optional translation alt
+ oonihilism_negative_afterlife_3:0 "$oonihilism_divine_realm$" # Optional translation alt
+
+ ##Oonihilism Holy Sites
+ holy_site_guangzhou_name:0 "Guangzhou"
+ holy_site_guangzhou_effect_name:0 "Blessing of Guangzhou"
+ holy_site_mataram_name:0 "Mataram"
+ holy_site_mataram_effect_name:0 "From [holy_site|E] #weak ($holy_site_mataram_name$)#!"
+ holy_site_jenne_jeno_name:0 "Jenne-Jeno"
+ holy_site_jenne_jeno_effect_name:0 "From [holy_site|E] #weak ($holy_site_jenne_jeno_name$)#!"
+
+ ##Oonihilism Holy Site Building
+ building_holy_site_oonihilism_temple_01:0 "Ruined Mausoleum of Oon"
+ building_holy_site_oonihilism_temple_01_desc:0 "Time and neglect have taken their toll here. Fallen roof tiles litter a cracked courtyard, and the incense braziers have long gone cold, yet pilgrims still come to honor Guang Guang and the Three Pure Ones among the ruins, certain that this ground has been blessed since before memory."
+ building_type_holy_site_oonihilism_temple_01:0 "$building_holy_site_oonihilism_temple_01$"
+ building_type_holy_site_oonihilism_temple_01_desc:0 "$building_holy_site_oonihilism_temple_01_desc$"
+
+ building_holy_site_oonihilism_temple_02:0 "Great Mausoleum of Oon"
+ building_holy_site_oonihilism_temple_02_desc:0 "Restored to its full glory, the mausoleum once again draws the faithful in numbers. Incense smoke curls skyward and the cycle of the Oon turns unbroken, as pilgrims circle the courtyard bearing offerings to Guang Guang and the Three Pure Ones."
+ building_type_holy_site_oonihilism_temple_02:0 "$building_holy_site_oonihilism_temple_02$"
+ building_type_holy_site_oonihilism_temple_02_desc:0 "$building_holy_site_oonihilism_temple_02_desc$"
+
+ OONIHILISM_HOLY_SITE_FAITH_ENABLED:1 "The holder's faith is part of $oonihilism_religion$"
+ NOT_OONIHILISM_HOLY_SITE_FAITH_ENABLED:1 "The holder's faith must be part of $oonihilism_religion$"
+
+ oonihilism_creator_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_creator_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_health_god_name:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_health_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_fertility_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_fertility_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_wealth_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_wealth_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_household_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_household_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_fate_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_fate_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_knowledge_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_knowledge_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_war_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_war_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_trickster_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_trickster_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_night_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_night_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ oonihilism_water_god_name:0 "$oonihilism_high_god_name$"
+ oonihilism_water_god_name_possessive:0 "$oonihilism_high_god_name_possessive$"
+ witchgodname_oonihilism_daode_tianzun:0 "$oonihilism_high_god_name$"
+ witchgodname_oonihilism_daode_tianzun_possessive:0 "$oonihilism_high_god_name_possessive$"
+
+ #Oonihilation Religion
+ oonihilation:0 "Oonihilation"
+ oonihilation_adj:0 "Oonihilationist"
+ oonihilation_adherent:0 "Oonihilationist"
+ oonihilation_adherent_plural:0 "Oonihilationists"
+ oonihilation_desc:0 "Don't look at my eel!"
+ 
+ oonihilation_positive_afterlife:0 "The Oon"
+ oonihilation_negative_afterlife:0 "The Oon"
+
+ ##Oonihilism Tenets
+
+ #Tiger Hearlds
+ tenet_adaptive_tigers_name:0 "Tiger Heralds"
+ tenet_adaptive_tigers_desc:0 "Convert or be eaten!"
+
+ doctrine_parameter_unlocks_naval_raiding:0 "Unlocks the ability to [raid|E] over seas, if you can already [raid|E]"
+ doctrine_parameter_unlocks_sailable_major_rivers:0 "Unlocks the ability to sail in Major Rivers"
+ doctrine_parameter_unlocks_tiger_cavalry:0 "Unlocks the recruitment of $tiger_cavalry$ men-at-arms"
+ doctrine_parameter_unlocks_tiger_cages:0 "Unlocks construction of Tiger Cages domicile buildings"
+ doctrine_parameter_unlocks_tiger_wrangler:0 "Unlocks the $tiger_wrangler_court_position$ court position"
+
+ #Tiger Wrangler court position (common/court_positions/types/99_oonihilism_court_positions.txt)
+ tiger_wrangler_court_position:0 "Tiger Wrangler"
+ tiger_wrangler_court_position_desc:1 "The $tiger_wrangler_court_position$ is responsible for the care, training, and discipline of the faith's War Tigers and any tigers kept as pets within the household — a post equal parts honor and mortal risk."
+ tiger_wrangler_has_pet_tiger:0 "Has experience handling a pet tiger"
+
+ #Tiger Herald camp officer (common/court_positions/types/99_oonihilism_court_positions.txt) — a
+ #camp-only counterpart to the Tiger Wrangler, unlocked by the Tiger Cages camp building.
+ tiger_herald_camp_officer:0 "Tiger Herald"
+ tiger_herald_camp_officer_desc:1 "The $tiger_herald_camp_officer$ trains the war tigers that march with the camp, honing their endurance and their instinct for the chase."
+ tiger_herald_camp_officer_parameter_tt:0 "$camp_with_following_buildings_tt$\n$BULLET$[GetDomicileBuilding('baggage_train_tiger_cages').GetName]"
+
+ #Tiger Cages (Adventurer Camp) building parameter tooltip line, mirroring vanilla's
+ #domicile_building_parameter_camp_unlocks_kennelperson_officer (localization/english/domiciles/domicile_buildings_l_english.yml)
+ domicile_building_parameter_camp_unlocks_tiger_herald_officer: "Unlocks the [GetCourtPositionType('tiger_herald_camp_officer').GetName()] [officer|E]"
+
+ #Tiger Wrangler tasks (common/court_positions/tasks/99_oonihilism_tiger_wrangler_tasks.txt)
+ #No on_start custom_tooltip anymore — the auto-generated employer/employee modifier breakdown
+ #already covers this, so the mechanical summary lives in _desc instead.
+ tiger_wrangler_court_position_task_guard_menagerie:0 "Guard the Menagerie"
+ tiger_wrangler_court_position_task_guard_menagerie_desc:0 "Your $tiger_wrangler_court_position$ keeps the tigers leashed and ready at the gates, a living deterrent — their handlers need only give the word to loose them on any who mean harm. Reduces the success chance of hostile schemes against you and raises your natural dread, scaling with [aptitude|E]."
+
+ tiger_wrangler_court_position_task_display_beasts:0 "Display the Beasts"
+ tiger_wrangler_court_position_task_display_beasts_desc:0 "Your $tiger_wrangler_court_position$ will parade the tigers on their chains before guests and petitioners alike, a show of wealth and power few other courts can match. Grants monthly prestige and increased [court_grandeur|E], scaling with [aptitude|E]."
+
+ tiger_wrangler_court_position_task_cat_sit:0 "Cat Sit"
+ tiger_wrangler_court_position_task_cat_sit_desc:0 "Your $tiger_wrangler_court_position$ will personally see to your pet tiger's needs between hunts, easing your burden and keeping the beast content on its leash. Occasionally eases your [stress|E], growing more frequent with your $tiger_wrangler_court_position$'s [aptitude|E]."
+ tiger_wrangler_court_position_task_cat_sit_tt:0 "Every year your $tiger_wrangler_court_position$ has a chance to ease your [stress_loss_i][stress|E], growing more likely with their [aptitude|E]"
+
+ #Notification shown when Cat Sit's yearly stress-relief chance actually triggers (see
+ #common/messages/99_oonihilism_messages.txt for the event_tiger_wrangler_good message type).
+ tiger_wrangler_cat_sit_relief_title:0 "A Moment's Peace"
+ tiger_wrangler_cat_sit_relief_desc:0 "Time spent with your pet tiger loosens the knot in your chest, easing your [stress|E]."
+
+ ##Oonihilism Men-at-Arms
+ tiger_cavalry:0 "War Tigers"
+ tiger_cavalry_flavor:0 "#F No rider could hope to master such a beast — instead the Tiger Heralds unleash them like hounds of war, loosed from their handlers to run down a routing enemy. Ferocious in the jungle and merciless in the chase.#!"
+
+ ##Oonihilism Interactions
+ feed_to_tigers_interaction:0 "Feed to the Tigers"
+ feed_to_tigers_interaction_desc:0 "Let the tigers decide [recipient.GetShortUINameNoTooltip]'s fate"
+
+ ##Oonihilism Estate Buildings
+ #Tier names scale like vanilla's own Kennel chain (stable_kennel_04/05/06_domicile_building:
+ #"Doghouse" -> "Dog Handlers" -> "Kennel", localization/english/domiciles/domicile_buildings_l_english.yml),
+ #shared across all four domicile types just as vanilla shares its kennel names across estate/chinese estate.
+ stable_tiger_cages_04_domicile_building:0 "Tiger Pen"
+ stable_tiger_cages_05_domicile_building:0 "Tiger Handlers"
+ stable_tiger_cages_06_domicile_building:0 "Tiger Cages"
+ east_asian_estate_stable_tiger_cages_04_domicile_building:0 "Tiger Pen"
+ east_asian_estate_stable_tiger_cages_05_domicile_building:0 "Tiger Handlers"
+ east_asian_estate_stable_tiger_cages_06_domicile_building:0 "Tiger Cages"
+ japanese_manor_stable_tiger_cages_04_domicile_building:0 "Tiger Pen"
+ japanese_manor_stable_tiger_cages_05_domicile_building:0 "Tiger Handlers"
+ japanese_manor_stable_tiger_cages_06_domicile_building:0 "Tiger Cages"
+ horse_breeder_yurt_tiger_cages_04_domicile_building:0 "Tiger Pen"
+ horse_breeder_yurt_tiger_cages_05_domicile_building:0 "Tiger Handlers"
+ horse_breeder_yurt_tiger_cages_06_domicile_building:0 "Tiger Cages"
+ baggage_train_tiger_cages_domicile_building:0 "Tiger Cages"
+
+ ##Oonihilism Death Reasons
+ death_tigers: "was devoured by tigers"
+ death_tigers_killer: "was fed to the tigers on [TARGET_CHARACTER.GetUINamePossessive] orders"
+
+ #Littermates
+ tenet_oon_marriage_name:0 "Littermates"
+ tenet_oon_marriage_desc:0 "By marrying close of kin, we emulate the sacred unions of the Oon. Good qualities will be passed down our family line, and thus we gain purity and favor in the eternal battle against evil."
+
+ #Massive piety for marrying a close family member — reimplemented on
+ #common/on_action/99_oonihilism_close_kin_marriage_piety.txt to work regardless of marriage-type
+ #doctrine, since vanilla's own version of this bonus only pays out under monogamy. Marriage only,
+ #deliberately not concubinage.
+ oonihilism_close_kin_marriage_piety_title:0 "A Sacred Union"
+ oonihilism_close_kin_marriage_piety_desc:0 "By taking kin of your own blood as spouse, your devotion is rewarded with great [piety|E]."
+
+ #Bamboo Gardens
+ tenet_experienced_traders_name:0 "Experienced Traders"
+ tenet_experienced_traders_desc:0 "Wood for sheep?"
+
+ ##Oonihilism Decisions
+
+ #Embrace Oonihilism
+ embrace_oonihilism_decision:0 "Embrace Oonihilism"
+ embrace_oonihilism_decision_desc:0 "I feel the pull of the Great Oon. One way or another, I will bow to Guang Guang's divine will."
+ embrace_oonihilism_decision_tooltip:0 "Adopt an Oonihilist faith in secret"
+ embrace_oonihilism_decision.tt: "You will choose an Oonihilist faith to worship in [secret|E]"
+ embrace_oonihilism_decision_confirm:0 "Guang Guang Be Praised!"
+
+ oonihilism_decisions.02.t: "Embrace Oonihilism"
+ oonihilism_decisions.02.desc: "No matter what, I will follow the teachings of Guang Guang and defend agianst the destruction of the Great Oon. But in my hour or need, which faith will I call my own?"
+ oonihilism_decisions.02.a: "I will practice [GetFaithByKey('oonihilation').GetName]."
+
+ #Adopt a Pet Tiger — see common/decisions/99_oonihilism_pet_tiger_decisions.txt and
+ #common/story_cycles/99_oonihilism_pet_tiger.txt
+ adopt_pet_tiger_decision_name:0 "Adopt a Pet Tiger"
+ adopt_pet_tiger_decision_desc:0 "A cub raised in the halls of Guang Guang's faithful grows into a fitting companion — proof that even the fiercest of Oon's creatures can be tamed to serve the Tiger Heralds."
+ adopt_pet_tiger_decision_already_pet_tt:0 "Does not already have a pet tiger"
+ adopt_pet_tiger_decision_confirm:0 "Adopt a tiger cub"
+ adopt_pet_tiger_decision_tooltip:0 "$adopt_pet_tiger_decision_confirm$"
+
+ #No `title` field is set on pet_tiger_decision (common/decisions/99_oonihilism_pet_tiger_decisions.txt),
+ #so its display name falls back to the decision's own bare key — matching vanilla's pet_dog_decision,
+ #which is likewise titleless and relies on this same key: pet_dog_decision:0 "Pet [ROOT.Char.Custom('DogStoryName')]"
+ pet_tiger_decision:0 "Visit [ROOT.Char.Custom('TigerStoryName')]"
+ pet_tiger_decision_desc:0 "It is time to visit my dangerous companion [ROOT.Char.Custom('TigerStoryName')]. Few in the court dare come near, but between us there is an uneasy trust."
+ pet_tiger_decision_confirm:0 "Visit your tiger"
+ pet_tiger_decision_tooltip:0 "$pet_tiger_decision_confirm$"
+
+ #Player-only recovery/QoL decision — re-opens the naming widget for an already-named tiger.
+ rename_pet_tiger_decision:0 "Rename Your Tiger"
+ rename_pet_tiger_decision_desc:0 "The name I gave my tiger no longer feels right. Perhaps another will suit it better."
+ rename_pet_tiger_decision_confirm:0 "Choose a new name"
+ rename_pet_tiger_decision_tooltip:0 "$rename_pet_tiger_decision_confirm$"
+
+ #Pet Tiger story cycle modifiers (common/modifiers/99_oonihilism_pet_tiger_modifiers.txt)
+ tiger_story_modifier:0 "Tiger Companion"
+ fierce_tiger_story_modifier:0 "Fierce Tiger"
+ loyal_tiger_story_modifier:0 "Loyal Tiger"
+ calm_tiger_story_modifier:0 "Calm Tiger"
+ cunning_tiger_story_modifier:0 "Cunning Tiger"
+ well_fed_tiger_modifier:0 "Well-Fed Tiger"
+ feral_tiger_modifier:0 "Feral Tiger"
+
+ #Pet Tiger names (common/customizable_localization/99_oonihilism_pet_tiger_custom_loc.txt)
+ tiger_name_zawadi:0 "Zawadi"
+ tiger_name_sungura:0 "Sungura"
+ tiger_name_harimau:0 "Harimau"
+ tiger_name_meihua:0 "Meihua"
+ tiger_name_kiraz:0 "Kiraz"
+ tiger_name_anansi:0 "Anansi"
+ tiger_name_macan:0 "Macan"
+ tiger_name_huo:0 "Huo"
+ #Free-text entered name (see TigerStoryName/TigerStoryNameAll's flag:custom branch)
+ tiger_name:0 "[ROOT.Char.GetLocalizedText( 'story_cycle_tiger_name' )]"
+ tiger_name_fallback:0 "the tiger"
+ tiger_name_all: "[Story.GetOwner.GetLocalizedText( 'story_cycle_tiger_name' )]"
+
+ #Pet Tiger coat colors (common/customizable_localization/99_oonihilism_pet_tiger_custom_loc.txt)
+ tiger_coat_bengal:0 "orange and black striped"
+ tiger_coat_golden:0 "golden striped"
+ tiger_coat_white:0 "white"
+ tiger_coat_melanistic:0 "near-black"
+
+ #Pet Tiger story type name/flavor — shown in the Character Stories ledger list, matching vanilla's
+ #own per-story-type keys (story_cycle_pet_dog / _desc, story_cycle_pet_eagle / _desc, etc.,
+ #localization/english/event_localization/story_cycles/story_cycles_l_english.yml)
+ story_cycle_pet_tiger:0 "Pet Tiger"
+ story_cycle_pet_tiger_desc:0 "#F A tamed tiger prowls at your side, a fearsome companion that keeps the court at a respectful distance.#!"
+
+ #Pet Tiger story tooltip (custom_string_key on story_cycle_pet_tiger)
+ TIGER_INFORMATION_STRING:0 "Your tiger's name is #V [Story.Custom('TigerStoryNameAll')].#!\nIt is [Story.MakeScope.Var('tiger_age_variable').GetValue|0] years old."
+
+ #Pet Tiger story cycle events (common/events/oonihilism_events/99_oonihilism_pet_tiger_events.txt)
+ oonihilism_pet_tiger.0001.t:0 "A Cub Needs a Name"
+ oonihilism_pet_tiger.0001.desc:0 "The tiger cub paces its cage, [ROOT.Char.Custom('TigerCoatColor')] fur catching the light and [ROOT.Char.Custom('TigerEyeColor')] eyes watching you, unblinking. It needs a name before Guang Guang will smile on it."
+
+ oonihilism_pet_tiger.0004.t:0 "A Glimpse of Its Nature"
+ oonihilism_pet_tiger.0004.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has grown enough now to show its true temperament. You watch closely as it reacts to the bustle of the household."
+ oonihilism_pet_tiger.0004.a:0 "It bares its teeth at every stranger who draws near."
+ oonihilism_pet_tiger.0004.b:0 "It presses close to your side, watchful of anyone who isn't you."
+ oonihilism_pet_tiger.0004.c:0 "It stretches out in a patch of sun, utterly unbothered."
+ oonihilism_pet_tiger.0004.d:0 "It watches everything from the shadows, missing nothing."
+
+ oonihilism_pet_tiger.0002.t:0 "A Wild Thing"
+ oonihilism_pet_tiger.0002.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has grown large and restless. It was never truly tame, and keeping it any longer is a gamble against your own household's safety."
+ oonihilism_pet_tiger.0002.a:0 "Set it loose in the jungle."
+ oonihilism_pet_tiger.0002.a_tt:0 "Release the tiger and end the story"
+ oonihilism_pet_tiger.0002.b:0 "Keep it, risk and all."
+ oonihilism_pet_tiger.0002.b_tt:0 "Continue keeping the tiger"
+
+ oonihilism_pet_tiger.0003.t:0 "The Tiger Has Died"
+ oonihilism_pet_tiger.0003.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has died. Its hide is offered to you, a final gift from a fierce companion."
+ oonihilism_pet_tiger.0003.a:0 "Let it be buried with honors."
+ oonihilism_pet_tiger.0003.b:0 "Keep the hide as a trophy."
+
+ oonihilism_pet_tiger.0010.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Hearty Meal"
+ oonihilism_pet_tiger.0010.desc:0 "You see to it that [ROOT.Char.Custom('TigerStoryName')] is fed well. It watches you contentedly as it eats."
+ oonihilism_pet_tiger.0010.a:0 "Good."
+
+ oonihilism_pet_tiger.0011.t:0 "[ROOT.Char.Custom('TigerStoryName')]: Slipped the Cage"
+ oonihilism_pet_tiger.0011.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has slipped its cage and prowled the grounds half the night before being found. Your household is shaken."
+ oonihilism_pet_tiger.0011.a:0 "See it properly secured."
+
+ oonihilism_pet_tiger.0012.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Fearful Impression"
+ oonihilism_pet_tiger.0012.desc:0 "You bring [ROOT.Char.Custom('TigerStoryName')] to greet [scope:cowed_courtier.GetFirstName], who freezes at the sight of its bared teeth. Word of your fearsome companion spreads through the court."
+ oonihilism_pet_tiger.0012.a:0 "Let them be impressed."
+
+ oonihilism_pet_tiger.0013.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Mauling"
+ oonihilism_pet_tiger.0013.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has mauled [scope:mauled_courtier.GetFirstName] in a sudden fit of temper. The court is in an uproar."
+ oonihilism_pet_tiger.0013.a:0 "Apologize and pay for the injury."
+ oonihilism_pet_tiger.0013.b:0 "It is a tiger. What did they expect?"
+
+ oonihilism_pet_tiger.0014.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Rival in the Grass"
+ oonihilism_pet_tiger.0014.desc:0 "[ROOT.Char.Custom('TigerStoryName')] has caught the scent of a wild rival prowling near the grounds. It snarls, hackles raised, ready to fight."
+ oonihilism_pet_tiger.0014.a:0 "Let them settle it themselves."
+ oonihilism_pet_tiger.0014.b:0 "Pay the hunters to drive the rival off."
+
+ oonihilism_pet_tiger.0015.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Fearsome Audience"
+ oonihilism_pet_tiger.0015.desc:0 "You hold court with [ROOT.Char.Custom('TigerStoryName')] at your side. Petitioners choose their words carefully, all too aware of the beast watching from the dais."
+ oonihilism_pet_tiger.0015.a:0 "Let them be careful."
+
+ oonihilism_pet_tiger.0016.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Warning Growl"
+ oonihilism_pet_tiger.0016.desc:0 "[ROOT.Char.Custom('TigerStoryName')] growls at [scope:agent.GetFirstName] without cause — or so it seems, until you learn they've been conspiring against you all along."
+ oonihilism_pet_tiger.0016.a:0 "Expose the scheme."
+
+ oonihilism_pet_tiger.0023.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Sudden Fury"
+ oonihilism_pet_tiger.0023.desc:0 "Without warning, [ROOT.Char.Custom('TigerStoryName')] turns on you, claws and teeth drawing blood before your guards can pull it away."
+ oonihilism_pet_tiger.0023.a:0 "It was a moment's madness. Nothing more."
+ oonihilism_pet_tiger.0023.b:0 "This cannot happen again. Get rid of it."
+
+ oonihilism_pet_tiger.0020.t:0 "Visiting [ROOT.Char.Custom('TigerStoryName')]"
+ oonihilism_pet_tiger.0020.desc:0 "You sit by [ROOT.Char.Custom('TigerStoryName')]'s cage a while, watching it watch you back. There is something calming in its presence."
+ oonihilism_pet_tiger.0020.a:0 "Peaceful."
+
+ oonihilism_pet_tiger.0021.t:0 "Visiting [ROOT.Char.Custom('TigerStoryName')]"
+ oonihilism_pet_tiger.0021.desc:0 "[ROOT.Char.Custom('TigerStoryName')] presses against the bars as you approach, as close to affectionate as a beast like this can be."
+ oonihilism_pet_tiger.0021.a:0 "A rare comfort."
+
+ oonihilism_pet_tiger.0022.t:0 "[ROOT.Char.Custom('TigerStoryName')]: A Foul Mood"
+ oonihilism_pet_tiger.0022.desc:0 "[ROOT.Char.Custom('TigerStoryName')] is in a foul mood today, snarling at anyone who comes near, yourself included."
+ oonihilism_pet_tiger.0022.a:0 "Leave it be."

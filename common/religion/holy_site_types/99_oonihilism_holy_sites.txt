@@ -1,0 +1,44 @@
+﻿guangzhou = {
+	county = c_guangzhou_1
+	barony = b_nanhai
+
+	character_modifier = {
+		name = holy_site_guangzhou_effect_name
+		light_cavalry_damage_mult = 0.1
+		# Crossbowmen (common/men_at_arms_types/00_maa_types.txt) use the archers base type, and
+		# CK3's MAA modifier tokens only prefix onto base types, not individual unit keys
+		# (common/men_at_arms_types/_men_at_arms_types.info) — so this applies to all archers,
+		# not crossbowmen exclusively.
+		archers_damage_mult = 0.1
+	}
+}
+
+# Uses the existing Borobudur wonder (b_JAV_Borobodur, within c_JAV_mataram) —
+# already usable by oonihilism as an rf_eastern-family faith via
+# eastern_or_syncretic_with_eastern_trigger, no new building needed.
+# Holy-site bonus matches vanilla's own "borobudur" entry (Mahayana's holy site here).
+mataram = {
+	county = c_JAV_mataram
+	barony = b_JAV_Borobodur
+
+	character_modifier = {
+		name = holy_site_mataram_effect_name
+		monthly_piety_gain_per_knight_mult = 0.01
+		knight_effectiveness_mult = 0.1
+	}
+}
+
+# Uses the existing Great Mosque of Djenne wonder (b_jenne-jeno, within c_jenne) —
+# its is_enabled already falls back to any faith with is_holy_site_of = yes here,
+# no new building needed.
+# Holy-site bonus matches vanilla's own "jenne" entry.
+jenne_jeno = {
+	county = c_jenne
+	barony = b_jenne-jeno
+
+	character_modifier = {
+		name = holy_site_jenne_jeno_effect_name
+		diplomacy = 1
+		councillor_opinion = 5
+	}
+}

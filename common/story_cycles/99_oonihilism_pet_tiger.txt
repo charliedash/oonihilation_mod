@@ -1,0 +1,300 @@
+﻿# "Pet Tiger" story cycle, started by adopt_pet_tiger_decision (common/decisions/99_oonihilism_pet_tiger_decisions.txt),
+# itself unlocked by the Tiger Heralds tenet (tenet_adaptive_tigers) alone — no domicile building
+# required. Structurally modeled on vanilla's
+# story_cycle_pet_eagle.txt (common/story_cycles/), which was chosen over story_cycle_pet_dog.txt as
+# the closer template: no fur-color/ear-type genetics or funeral integration to reproduce, and its
+# personality-flavor modifier pattern fits a dangerous, ownership-risky pet better than the dog's
+# purely affectionate one. Naming uses the same free-text entry widget as the dog/eagle
+# (event_window_widget_enter_text, see oonihilism_pet_tiger.0001 in events/oonihilism_events/
+# 99_oonihilism_pet_tiger_events.txt), with our own 8 preset name suggestions.
+
+story_cycle_pet_tiger = {
+	visible = yes
+
+	icon = {
+		trigger = { always = yes }
+		reference = "gfx/interface/icons/regimenttypes/tiger_cavalry.dds"
+	}
+	background = {
+		reference = "gfx/interface/illustrations/event_scenes/ep2_dog_kennels.dds"
+	}
+
+	visualization = {
+		custom_string_key = "TIGER_INFORMATION_STRING"
+		modifiers = {
+			tiger_story_modifier
+			fierce_tiger_story_modifier
+			loyal_tiger_story_modifier
+			calm_tiger_story_modifier
+			cunning_tiger_story_modifier
+			well_fed_tiger_modifier
+			feral_tiger_modifier
+		}
+		decisions = {
+			pet_tiger_decision
+		}
+	}
+
+	on_setup = {
+		# Coat pattern / eye color are pure flavor text (no per-color art), so unlike gender/age
+		# below they live only on the story itself — mirroring dog's fur/eye color pattern
+		# (assign_dog_fur_color_effect etc., called unwrapped in story_cycle_pet_dog.txt's
+		# on_setup), rather than eagle's owner+mirror pattern, since nothing needs to read them
+		# via story_owner.
+		if = {
+			limit = { NOT = { exists = var:tiger_coat } }
+			assign_tiger_appearance_effect = yes
+		}
+
+		story_owner = {
+			if = {
+				limit = { NOT = { exists = var:tiger_gender } }
+				assign_tiger_gender_effect = { GENDER = random }
+			}
+			if = {
+				limit = { NOT = { exists = var:tiger_age_variable } }
+				set_variable = { name = tiger_age_variable value = 0 }
+			}
+			add_character_modifier = {
+				modifier = tiger_story_modifier
+			}
+		}
+
+		# Mirror gender/age onto the story's own scope (used by TIGER_INFORMATION_STRING)
+		if = {
+			limit = {
+				NOT = { exists = var:tiger_gender }
+				exists = story_owner.var:tiger_gender
+			}
+			set_variable = { name = tiger_gender value = story_owner.var:tiger_gender }
+		}
+		else = {
+			assign_tiger_gender_effect = { GENDER = random }
+		}
+
+		if = {
+			limit = {
+				NOT = { exists = var:tiger_age_variable }
+				exists = story_owner.var:tiger_age_variable
+			}
+			set_variable = { name = tiger_age_variable value = story_owner.var:tiger_age_variable }
+		}
+		else = {
+			set_variable = { name = tiger_age_variable value = 0 }
+		}
+	}
+
+	on_end = {
+		story_owner = {
+			if = {
+				limit = { is_alive = yes }
+				remove_tiger_story_modifiers_effect = yes
+			}
+		}
+	}
+
+	on_owner_death = {
+		scope:story = { end_story = yes }
+	}
+
+	# Name your tiger
+	effect_group = {
+		days = { 2 4 }
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				NOT = { exists = story_owner.var:story_cycle_tiger_name }
+			}
+			effect = {
+				story_owner = {
+					trigger_event = oonihilism_pet_tiger.0001
+				}
+			}
+		}
+	}
+
+	# Self-heal repair: catches tigers whose name variable got stuck holding something that
+	# doesn't match any of TigerStoryName's known flags (e.g. from the short-vs-full-key flag
+	# mismatch bug — see common/customizable_localization/99_oonihilism_pet_tiger_custom_loc.txt —
+	# where a human's preset click landed on a value none of the named branches matched, falling
+	# through permanently to the "the tiger" fallback text). Resets to flag:custom so display at
+	# least falls back to GetLocalizedText, rather than leaving it permanently unresolvable.
+	# Idempotent: a no-op once the variable already holds a real flag.
+	effect_group = {
+		days = 1
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				exists = story_owner.var:story_cycle_tiger_name
+				story_owner = {
+					NOR = {
+						var:story_cycle_tiger_name = flag:custom
+						var:story_cycle_tiger_name = flag:tiger_name_zawadi
+						var:story_cycle_tiger_name = flag:tiger_name_sungura
+						var:story_cycle_tiger_name = flag:tiger_name_harimau
+						var:story_cycle_tiger_name = flag:tiger_name_meihua
+						var:story_cycle_tiger_name = flag:tiger_name_kiraz
+						var:story_cycle_tiger_name = flag:tiger_name_anansi
+						var:story_cycle_tiger_name = flag:tiger_name_macan
+						var:story_cycle_tiger_name = flag:tiger_name_huo
+					}
+				}
+			}
+			effect = {
+				story_owner = {
+					set_variable = {
+						name = story_cycle_tiger_name
+						value = flag:custom
+					}
+				}
+			}
+		}
+	}
+
+	# Save the name into the story's own scope (mirrors vanilla's eagle story, used for display)
+	effect_group = {
+		days = 5
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				exists = story_owner.var:story_cycle_tiger_name
+			}
+			effect = {
+				set_variable = {
+					name = story_cycle_tiger_name
+					value = scope:story.story_owner.var:story_cycle_tiger_name
+				}
+			}
+		}
+	}
+
+	# A glimpse of its nature — reveals/assigns one of the four permanent personality flavors
+	# (fierce/loyal/calm/cunning) once the tiger has a name, instead of silently rolling one at
+	# adoption. AI characters resolve this through the event's own equal ai_chance weights rather
+	# than a separate effect (see oonihilism_pet_tiger.0004).
+	effect_group = {
+		days = { 10 20 }
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				exists = story_owner.var:story_cycle_tiger_name
+				story_owner = {
+					NOR = {
+						has_character_modifier = fierce_tiger_story_modifier
+						has_character_modifier = loyal_tiger_story_modifier
+						has_character_modifier = calm_tiger_story_modifier
+						has_character_modifier = cunning_tiger_story_modifier
+					}
+				}
+			}
+			effect = {
+				story_owner = {
+					trigger_event = oonihilism_pet_tiger.0004
+				}
+			}
+		}
+	}
+
+	# Age the tiger
+	# BUGFIX: also increments the story's OWN copy of tiger_age_variable, not just story_owner's.
+	# TIGER_INFORMATION_STRING (the story panel age display) reads via
+	# [Story.MakeScope.Var('tiger_age_variable').GetValue|0] — the story's own copy, which on_setup
+	# only ever sets ONCE at creation and this effect_group previously never touched again, so the
+	# displayed age stayed frozen at 0 forever even though story_owner's copy was incrementing
+	# correctly underneath. (Vanilla's own eagle aging, common/story_cycles/story_cycle_pet_eagle.txt,
+	# has this identical gap — EAGLE_INFORMATION_STRING reads the same way and its aging effect_group
+	# only touches story_owner too — so this looks like an unnoticed latent vanilla bug we're not
+	# reproducing here.)
+	effect_group = {
+		days = 365
+
+		trigger = {
+			exists = story_owner.var:tiger_age_variable
+		}
+
+		triggered_effect = {
+			trigger = { always = yes }
+			effect = {
+				story_owner = {
+					change_variable = {
+						name = tiger_age_variable
+						add = 1
+					}
+				}
+				# Set (not increment) to stay in lockstep with story_owner's copy and self-heal any
+				# existing staleness immediately, rather than parallel-incrementing from wherever the
+				# story's own copy was previously stuck.
+				set_variable = {
+					name = tiger_age_variable
+					value = story_owner.var:tiger_age_variable
+				}
+			}
+		}
+	}
+
+	# A wild pet is a risk to keep — chance to have to decide whether to let it go
+	effect_group = {
+		days = { 5000 7000 }
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				exists = story_owner.var:story_cycle_tiger_name
+				story_owner = {
+					NOT = { has_character_flag = tiger_is_dying }
+				}
+			}
+			effect = {
+				story_owner = {
+					trigger_event = oonihilism_pet_tiger.0002
+				}
+			}
+		}
+	}
+
+	# The tiger dies
+	effect_group = {
+		days = { 6000 8500 }
+		chance = 100
+
+		triggered_effect = {
+			trigger = {
+				exists = story_owner.var:story_cycle_tiger_name
+			}
+			effect = {
+				story_owner = {
+					add_character_flag = tiger_is_dying
+					trigger_event = oonihilism_pet_tiger.0003
+				}
+			}
+		}
+	}
+
+	# Something happens - random events
+	effect_group = {
+		days = { 365 600 }
+		chance = 30
+
+		trigger = {
+			exists = story_owner.var:story_cycle_tiger_name
+			story_owner = {
+				NOT = { has_character_flag = tiger_is_dying }
+			}
+		}
+
+		triggered_effect = {
+			trigger = { always = yes }
+			effect = {
+				story_owner = {
+					trigger_event = {
+						on_action = ongoing_tiger_events
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,29 @@
+﻿# Random event pools for the Pet Tiger story cycle (common/story_cycles/99_oonihilism_pet_tiger.txt)
+# and its "Pet your Tiger" decision (common/decisions/99_oonihilism_pet_tiger_decisions.txt).
+# Modeled on vanilla's ongoing_dog_events / story_cycle_dog_pet_decision_on_actions
+# (common/on_action/story_cycles/story_cycle_dog_on_actions.txt).
+
+ongoing_tiger_events = {
+	trigger = {
+		is_playable_character = yes
+		is_available = yes
+	}
+	random_events = {
+		50 = oonihilism_pet_tiger.0010 # Feed it well, get a stress modifier
+		20 = oonihilism_pet_tiger.0011 # It slips its cage
+		50 = oonihilism_pet_tiger.0012 # It intimidates a courtier
+		20 = oonihilism_pet_tiger.0013 # It mauls a courtier
+		50 = oonihilism_pet_tiger.0014 # Meets a rival tiger
+		50 = oonihilism_pet_tiger.0015 # Brought before the court
+		5 = oonihilism_pet_tiger.0016 # It senses treachery, exposes a scheme
+	}
+}
+
+story_cycle_tiger_pet_decision_on_actions = {
+	random_events = {
+		50 = oonihilism_pet_tiger.0020 # You visit your tiger
+		50 = oonihilism_pet_tiger.0021 # You visit your tiger v.2
+		10 = oonihilism_pet_tiger.0022 # It's in a foul mood
+		1 = oonihilism_pet_tiger.0023 # It lashes out
+	}
+}

@@ -1,0 +1,23 @@
+﻿# Validity trigger for tiger_wrangler_court_position (common/court_positions/types/99_oonihilism_court_positions.txt).
+# Trivial wrapper around the generic base trigger — mirrors vanilla's own keeper_of_swans_validity_trigger
+# etc. (common/scripted_triggers/00_court_position_triggers.txt), which do the same for positions
+# with no extra eligibility requirements beyond the standard ones.
+tiger_wrangler_validity_trigger = {
+	base_court_position_validity_trigger = { EMPLOYER = $EMPLOYER$ }
+}
+
+# Validity trigger for tiger_herald_camp_officer (common/court_positions/types/99_oonihilism_court_positions.txt),
+# called via valid_camp_officer_trigger = { OFFICER = tiger_herald } (common/scripted_triggers/00_court_position_triggers.txt:
+# "$OFFICER$_validity_trigger = { EMPLOYER = scope:liege }"). Camp officers are exclusive "jobs" —
+# a character can only hold one at a time — so this mirrors vanilla's own kennelperson_validity_trigger
+# in blocking anyone who already holds a different full-time camp officer job.
+tiger_herald_validity_trigger = {
+	custom_tooltip = {
+		text = none_does_not_have_a_full_time_job
+		trigger_if = {
+			limit = { NOT = { has_court_position = tiger_herald_camp_officer } }
+			court_position_does_not_already_have_a_job_trigger = yes
+		}
+	}
+	base_court_position_validity_trigger = { EMPLOYER = $EMPLOYER$ }
+}

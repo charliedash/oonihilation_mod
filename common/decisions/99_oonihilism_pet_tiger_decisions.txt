@@ -1,0 +1,157 @@
+﻿# Adopt a pet tiger, unlocked simply by having the Tiger Heralds tenet (tenet_adaptive_tigers,
+# common/religion/doctrine_types/99_core_tenets.txt) — no Tiger Cages building/upgrade required.
+# Modeled directly on vanilla's adopt_puppy_decision / pet_dog_decision
+# (common/decisions/dlc_decisions/ep_1/00_ep1_other_decisions.txt, common/decisions/90_minor_decisions.txt)
+# — see common/story_cycles/99_oonihilism_pet_tiger.txt for the story cycle these decisions drive.
+
+adopt_pet_tiger_decision = {
+	title = adopt_pet_tiger_decision_name
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/garden.dds"
+	}
+	desc = adopt_pet_tiger_decision_desc
+	selection_tooltip = adopt_pet_tiger_decision_tooltip
+	cooldown = { years = 5 }
+	sort_order = 89
+
+	is_shown = {
+		OR = {
+			is_landed_or_landless_administrative = yes
+			government_has_flag = government_is_landless_adventurer
+		}
+		is_lowborn = no
+		faith = { has_doctrine = tenet_adaptive_tigers }
+	}
+
+	is_valid_showing_failures_only = {
+		custom_tooltip = {
+			text = adopt_pet_tiger_decision_already_pet_tt
+			NOT = { any_owned_story = { type = story_cycle_pet_tiger } }
+		}
+	}
+
+	effect = {
+		start_pet_tiger_story_cycle_effect = yes
+	}
+
+	cost = { gold = medium_gold_value }
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 60
+		duchy = 60
+		kingdom = 60
+		empire = 60
+		hegemony = 60
+	}
+
+	ai_potential = {
+		short_term_gold >= medium_gold_value
+		NOR = {
+			has_trait = craven
+			has_trait = shy
+		}
+	}
+
+	ai_will_do = {
+		base = 100
+		modifier = {
+			add = 100
+			OR = {
+				has_trait = brave
+				has_trait = wrathful
+				has_trait = sadistic
+			}
+		}
+	}
+}
+
+# In-story decision, available once the tiger has been named. Fires a random flavor event.
+pet_tiger_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/garden.dds"
+	}
+	desc = pet_tiger_decision_desc
+	selection_tooltip = pet_tiger_decision_tooltip
+
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
+
+	cooldown = { days = 1825 }
+
+	is_shown = {
+		any_owned_story = {
+			type = story_cycle_pet_tiger
+			exists = story_owner.var:story_cycle_tiger_name
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		is_available = yes
+	}
+
+	effect = {
+		custom_tooltip = pet_decision_effect_tooltip
+		trigger_event = {
+			on_action = story_cycle_tiger_pet_decision_on_actions
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = 100
+			stress > 10
+		}
+	}
+}
+
+# Player-only QoL/recovery decision: re-opens the naming widget (oonihilism_pet_tiger.0001) for an
+# already-named tiger. Added as the recovery path for tigers whose name variable got stuck on a
+# bad value by the short-vs-full-key flag mismatch bug (common/customizable_localization/
+# 99_oonihilism_pet_tiger_custom_loc.txt) — since the story only fires the naming event once
+# (guarded by NOT exists = var:story_cycle_tiger_name), there was previously no way back in for a
+# tiger that already has some value there, however broken.
+rename_pet_tiger_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/garden.dds"
+	}
+	desc = rename_pet_tiger_decision_desc
+	selection_tooltip = rename_pet_tiger_decision_tooltip
+	sort_order = 90
+
+	is_shown = {
+		is_ai = no
+		any_owned_story = {
+			type = story_cycle_pet_tiger
+			exists = story_owner.var:story_cycle_tiger_name
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		is_available = yes
+	}
+
+	effect = {
+		remove_variable = story_cycle_tiger_name
+		any_owned_story = {
+			limit = { story_type = story_cycle_pet_tiger }
+			remove_variable = story_cycle_tiger_name
+		}
+		trigger_event = oonihilism_pet_tiger.0001
+	}
+
+	ai_potential = {
+		always = no
+	}
+}

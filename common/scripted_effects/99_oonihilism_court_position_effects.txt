@@ -1,0 +1,23 @@
+﻿# Lifecycle effects for tiger_wrangler_court_position (common/court_positions/types/99_oonihilism_court_positions.txt).
+# Trivial wrappers around the generic effects every simple court position uses — mirrors vanilla's
+# own keeper_of_swans_title_accepted_effect etc. (common/scripted_effects/00_court_position_effects.txt).
+tiger_wrangler_title_accepted_effect = {
+	basic_gained_court_position_effect = yes
+}
+tiger_wrangler_title_revoked_effect = {
+	basic_revoked_court_position_effect = yes
+}
+tiger_wrangler_title_invalidated_effect = {
+	basic_invalidated_court_position_effect = yes
+}
+
+# Lifecycle effects for tiger_herald_camp_officer (common/court_positions/types/99_oonihilism_court_positions.txt).
+tiger_herald_camp_officer_title_accepted_effect = {
+	basic_gained_court_position_effect = yes
+}
+tiger_herald_camp_officer_title_revoked_effect = {
+	basic_revoked_court_position_effect = yes
+}
+tiger_herald_camp_officer_title_invalidated_effect = {
+	basic_invalidated_court_position_effect = yes
+}

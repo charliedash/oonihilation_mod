@@ -1,0 +1,164 @@
+﻿###########
+## Oonihilism Holy Site Building
+###########
+
+# Level 1: pre-existing ruins, placed at game start via history/provinces/99_oonihilism_holy_sites.txt.
+# Minimal bonuses until repaired into holy_site_oonihilism_temple_02.
+holy_site_oonihilism_temple_01 = {
+	effect_desc = {
+		triggered_desc = {
+			trigger = { has_dlc_feature = legends_of_the_dead }
+			desc = building_funeral_effect_desc
+		}
+	}
+
+	asset = {
+		type = pdxmesh
+		name = "tgp_building_special_chinese_temple_03_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_fogong_temple_pagoda.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	# Deliberately no can_construct block, matching wonder-style buildings like
+	# hagia_sophia_01: those rely only on can_construct_potential + is_enabled so
+	# they're always listed as an option for any existing special-building slot
+	# (shown greyed-out via show_disabled when is_enabled fails), rather than
+	# competing to be the one that originally claims the slot.
+	is_enabled = {
+		custom_description = {
+			text = holy_site_building_trigger
+			barony = {
+				is_holy_site_of = scope:holder.faith
+			}
+		}
+		custom_description = {
+			text = oonihilism_holy_site_building_faith_trigger
+			scope:holder = {
+				faith = {
+					religion_tag = oonihilism_religion
+				}
+			}
+		}
+	}
+
+	show_disabled = yes
+
+	cost_gold = 1000
+
+	max_garrison = 250
+
+	character_modifier = {
+		monthly_piety = 0.5
+	}
+
+	province_modifier = {
+		fort_level = 2
+		defender_holding_advantage = 2
+		travel_danger = -10
+	}
+
+	on_complete = {
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+
+	next_building = holy_site_oonihilism_temple_02
+
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+# Level 2: the mausoleum repaired to its full glory. Carries the full bonus set.
+holy_site_oonihilism_temple_02 = {
+	effect_desc = {
+		triggered_desc = {
+			trigger = { has_dlc_feature = legends_of_the_dead }
+			desc = building_funeral_effect_desc
+		}
+	}
+
+	asset = {
+		type = pdxmesh
+		name = "tgp_building_special_chinese_temple_03_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_fogong_temple_pagoda.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+		custom_description = {
+			text = holy_site_building_trigger
+			barony = {
+				is_holy_site_of = scope:holder.faith
+			}
+		}
+		custom_description = {
+			text = oonihilism_holy_site_building_faith_trigger
+			scope:holder = {
+				faith = {
+					religion_tag = oonihilism_religion
+				}
+			}
+		}
+	}
+
+	show_disabled = yes
+
+	cost_gold = 1000
+
+	# Realm effects
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		monthly_piety = 1
+		domain_tax_different_faith_mult = 0.15
+		levy_reinforcement_rate_same_faith = 0.15
+		monthly_county_control_growth_factor = 0.05
+	}
+
+	# County effects
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth_factor = 0.3
+		development_growth = 0.3
+	}
+
+	# Holding effects
+	province_modifier = {
+		monthly_income = 3
+	}
+
+	on_complete = {
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+	}
+
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}

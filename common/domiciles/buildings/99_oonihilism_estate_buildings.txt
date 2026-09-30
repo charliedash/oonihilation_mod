@@ -1,0 +1,589 @@
+﻿# "Tiger Cages" — an alternate 3-tier branch (04/05/06) off each domicile type's
+# stables chain, reusing the same structural pattern as stable_chariot_04/05/06
+# (Chariot Racing Track) and east_asian_estate_stable_kennel_04/05/06 (Kennel) — see
+# common/domiciles/buildings/00_estate_buildings.txt and 00_chinese_estate_buildings.txt.
+# Gated on the Oonihilation faith instead of a cultural parameter. Bonuses scale with
+# tier and apply to War Tigers (tiger_cavalry, common/men_at_arms_types/99_oonihilism_maa_types.txt)
+# and any other light_cavalry-base-type regiment: +1/+2/+3 max regiment size,
+# -10%/-20%/-30% maintenance cost. Exception: the single-tier Adventurer Camp version below instead
+# gives +10% knight effectiveness and -10% recruitment cost (no max regiment size or toughness/
+# pursuit bonus, and recruitment cost rather than maintenance).
+# Custom icon throughout (gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds),
+# replacing the earlier placeholder borrowed from vanilla's Prison domicile building.
+# adopt_pet_tiger_decision (common/decisions/99_oonihilism_pet_tiger_decisions.txt) is unlocked by
+# the Tiger Heralds tenet alone, not by any of these buildings — no domicile parameter needed here.
+# The Adventurer Camp version (baggage_train_tiger_cages, below) hangs off baggage_train_01,
+# matching vanilla's own Kennel equivalent (baggage_train_kennel) rather than the Proving Grounds
+# chain it was originally (mistakenly) modeled on.
+
+### Administrative Estate ###
+
+stable_tiger_cages_04 = {
+	construction_time = 730
+	allowed_domicile_types = { estate }
+	previous_building = stable_03
+
+	can_construct_potential = {
+		faith = { has_doctrine_parameter = unlocks_tiger_cages }
+		domicile ?= { has_domicile_building_or_higher = estate_main_03 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_4_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 1
+		light_cavalry_maintenance_mult = -0.1
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 6
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_chariot"
+	}
+}
+
+stable_tiger_cages_05 = {
+	construction_time = 730
+	allowed_domicile_types = { estate }
+	previous_building = stable_tiger_cages_04
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = estate_main_04 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_5_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 2
+		light_cavalry_maintenance_mult = -0.2
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 5
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_chariot"
+	}
+}
+
+stable_tiger_cages_06 = {
+	construction_time = 730
+	allowed_domicile_types = { estate }
+	previous_building = stable_tiger_cages_05
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = estate_main_05 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_6_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 3
+		light_cavalry_maintenance_mult = -0.3
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 4
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_chariot"
+	}
+}
+
+### Celestial (East Asian) Estate ###
+
+east_asian_estate_stable_tiger_cages_04 = {
+	construction_time = 540
+	allowed_domicile_types = { east_asian_estate }
+	previous_building = east_asian_estate_stable_03
+	internal_slots = 3
+
+	can_construct = {
+		faith = { has_doctrine_parameter = unlocks_tiger_cages }
+		domicile ?= { has_domicile_building_or_higher = east_asian_estate_main_03 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_4_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 1
+		light_cavalry_maintenance_mult = -0.1
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 6
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_kennel"
+	}
+}
+
+east_asian_estate_stable_tiger_cages_05 = {
+	construction_time = 600
+	allowed_domicile_types = { east_asian_estate }
+	previous_building = east_asian_estate_stable_tiger_cages_04
+	internal_slots = 3
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = east_asian_estate_main_04 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_5_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 2
+		light_cavalry_maintenance_mult = -0.2
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 5
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_kennel"
+	}
+}
+
+east_asian_estate_stable_tiger_cages_06 = {
+	construction_time = 660
+	allowed_domicile_types = { east_asian_estate }
+	previous_building = east_asian_estate_stable_tiger_cages_05
+	internal_slots = 3
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = east_asian_estate_main_05 }
+	}
+
+	cost = {
+		gold = {
+			value = estate_external_building_high_cost_tier_6_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 3
+		light_cavalry_maintenance_mult = -0.3
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 4
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_china.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_china_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable_kennel"
+	}
+}
+
+### Manor (Japanese domicile type) ###
+# Vanilla has no themed alternate branch off japanese_stables_03 (japanese_stables_04
+# just continues the plain chain), so this adds one following the same structure as
+# the other domicile types.
+
+japanese_manor_stable_tiger_cages_04 = {
+	construction_time = 300
+	allowed_domicile_types = { japanese_manor }
+	previous_building = japanese_stables_03
+	internal_slots = 2
+
+	can_construct = {
+		faith = { has_doctrine_parameter = unlocks_tiger_cages }
+		domicile ?= { has_domicile_building_or_higher = japanese_manor_main_04 }
+	}
+
+	cost = {
+		gold = {
+			value = japanese_manor_external_building_high_cost_tier_4_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 1
+		light_cavalry_maintenance_mult = -0.1
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 6
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_japanese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_japanese_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable"
+	}
+}
+
+japanese_manor_stable_tiger_cages_05 = {
+	construction_time = 360
+	allowed_domicile_types = { japanese_manor }
+	previous_building = japanese_manor_stable_tiger_cages_04
+	internal_slots = 3
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = japanese_manor_main_05 }
+	}
+
+	cost = {
+		gold = {
+			value = japanese_manor_external_building_high_cost_tier_5_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 2
+		light_cavalry_maintenance_mult = -0.2
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 5
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_japanese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_japanese_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable"
+	}
+}
+
+japanese_manor_stable_tiger_cages_06 = {
+	construction_time = 420
+	allowed_domicile_types = { japanese_manor }
+	previous_building = japanese_manor_stable_tiger_cages_05
+	internal_slots = 3
+
+	can_construct = {
+		domicile ?= { has_domicile_building_or_higher = japanese_manor_main_06 }
+	}
+
+	cost = {
+		gold = {
+			value = japanese_manor_external_building_high_cost_tier_6_value
+			if = {
+				limit = { has_character_modifier = raid_insight_stable }
+				multiply = 0.75
+				desc = raid_insight_stable
+			}
+		}
+	}
+
+	parameters = {
+		estate_unlock_mount_travel_option = yes
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 3
+		light_cavalry_maintenance_mult = -0.3
+		prowess = 2
+	}
+
+	ai_value = {
+		value = 4
+		add = estate_building_ai_modifier_value
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/estate_building_stable_japanese.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/estate_building_stable_japanese_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/domicile_buildings/ep3_ui_domicile_buildings_stable"
+	}
+}
+
+### Nomadic Capital (yurt domicile type) ###
+
+horse_breeder_yurt_tiger_cages_04 = {
+	construction_time = 120
+	allowed_domicile_types = { yurt }
+	slot_type = internal
+	previous_building = horse_breeder_yurt_03
+
+	can_construct = {
+		faith = { has_doctrine_parameter = unlocks_tiger_cages }
+	}
+
+	cost = {
+		herd = yurt_internal_building_herd_cost_tier_4
+		prestige = yurt_internal_building_prestige_cost_tier_4
+		gold = yurt_internal_building_gold_cost_tier_4
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 1
+		light_cavalry_maintenance_mult = -0.1
+		prowess = 2
+	}
+
+	ai_value = {
+		value = nomadic_capital_interior_building_3
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/main_yurt_02.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/main_yurt_02_mask.png"
+		soundeffect = "event:/DLC/CE2/UI/camp_buildings/ce2_ui_domicile_buildings_mainYurt"
+	}
+}
+
+horse_breeder_yurt_tiger_cages_05 = {
+	construction_time = 200
+	allowed_domicile_types = { yurt }
+	slot_type = internal
+	previous_building = horse_breeder_yurt_tiger_cages_04
+
+	cost = {
+		herd = yurt_internal_building_herd_cost_tier_5
+		prestige = yurt_internal_building_prestige_cost_tier_5
+		gold = yurt_internal_building_gold_cost_tier_5
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 2
+		light_cavalry_maintenance_mult = -0.2
+		prowess = 2
+	}
+
+	ai_value = {
+		value = nomadic_capital_interior_building_4
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/main_yurt_03.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/main_yurt_03_mask.png"
+		soundeffect = "event:/DLC/CE2/UI/camp_buildings/ce2_ui_domicile_buildings_mainYurt"
+	}
+}
+
+horse_breeder_yurt_tiger_cages_06 = {
+	construction_time = 320
+	allowed_domicile_types = { yurt }
+	slot_type = internal
+	previous_building = horse_breeder_yurt_tiger_cages_05
+
+	cost = {
+		herd = yurt_internal_building_herd_cost_tier_6
+		prestige = yurt_internal_building_prestige_cost_tier_6
+		gold = yurt_internal_building_gold_cost_tier_6
+	}
+
+	character_modifier = {
+		light_cavalry_max_size_add = 3
+		light_cavalry_maintenance_mult = -0.3
+		prowess = 2
+	}
+
+	ai_value = {
+		value = nomadic_capital_interior_building_5
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/main_yurt_03.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/main_yurt_03_mask.png"
+		soundeffect = "event:/DLC/CE2/UI/camp_buildings/ce2_ui_domicile_buildings_mainYurt"
+	}
+}
+
+### Adventurer Camp (camp domicile type) ###
+# Left single-tier: matches vanilla's real Kennel equivalent, baggage_train_kennel
+# (common/domiciles/buildings/00_camp_buildings.txt), which is a single-tier internal
+# specialization off baggage_train_01 (NOT part of the Proving Grounds/horse-run chain,
+# which has no further tiers of its own to extend). Renamed from proving_grounds_tiger_cages
+# to baggage_train_tiger_cages to match that parentage.
+
+baggage_train_tiger_cages = {
+	slot_type = internal
+	construction_time = 240
+	allowed_domicile_types = { camp }
+	previous_building = baggage_train_01
+
+	can_construct = {
+		faith = { has_doctrine_parameter = unlocks_tiger_cages }
+	}
+
+	cost = { gold = baggage_train_kennel_domicile_building_gold_cost_value }
+	refund = {
+		gold = {
+			value = baggage_train_kennel_domicile_building_gold_cost_value
+			multiply = camp_refund_mult_value
+			floor = yes
+		}
+	}
+
+	parameters = {
+		camp_unlocks_tiger_herald_officer = yes
+	}
+
+	character_modifier = {
+		knight_effectiveness_mult = 0.1
+		light_cavalry_recruitment_cost_mult = -0.1
+	}
+
+	ai_value = {
+		value = camp_building_ai_base_t1
+		multiply = 10
+		if = {
+			limit = {
+				owner = {
+					number_maa_regiments_of_base_type:light_cavalry <= 0
+				}
+			}
+			multiply = 0
+		}
+	}
+
+	asset = {
+		trigger = {
+			owner.culture = {
+				OR = {
+					has_graphical_chinese_culture_group_trigger = yes
+					has_graphical_japanese_culture_group_trigger = yes
+				}
+			}
+		}
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/laamp_building_baggage_train_asian.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/laamp_building_baggage_train_asian_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/camp_buildings/ep3_ui_domicile_buildings_baggage_train"
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_tiger_pen.dds"
+		texture = "gfx/interface/window_domiciles/laamp_building_baggage_train.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/laamp_building_baggage_train_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/camp_buildings/ep3_ui_domicile_buildings_baggage_train"
+	}
+}

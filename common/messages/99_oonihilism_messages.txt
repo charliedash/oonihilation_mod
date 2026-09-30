@@ -1,0 +1,12 @@
+﻿# Message type for the Tiger Wrangler's Cat Sit task periodic stress-relief notification
+# (common/court_positions/tasks/99_oonihilism_tiger_wrangler_tasks.txt). Modeled directly on
+# vanilla's own position-specific message types (event_champion_neutral, event_bodyguard_neutral,
+# event_court_physician_good — common/messages/01_court_position_messages.txt), which all use the
+# same title/desc token pair and are simply given per-position icons and a style.
+event_tiger_wrangler_good = {
+	icon = "a_catch_all_councillor_icon"
+	title = event_message_title
+	desc = event_message_effect
+	style = good
+	message_filter_type = event_outcome
+}

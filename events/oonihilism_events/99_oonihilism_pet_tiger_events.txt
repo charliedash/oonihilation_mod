@@ -1,0 +1,802 @@
+﻿# Pet Tiger story cycle events — see common/story_cycles/99_oonihilism_pet_tiger.txt,
+# common/decisions/99_oonihilism_pet_tiger_decisions.txt, and
+# common/on_action/99_oonihilism_pet_tiger_on_actions.txt.
+# Modeled on vanilla's events/story_cycles/story_cycle_pet_animal_events.txt (naming, "let it go",
+# dying, and ongoing/petting flavor events for the dog and eagle stories). Ongoing (7) and petting (4)
+# event pool sizes match the dog's, coat/eye color flavor (assign_tiger_appearance_effect) matches
+# the dog's fur/eye color system (text-only, no per-color art), and naming now uses the same
+# free-text entry widget as the dog/eagle (event_window_widget_enter_text), with our own 8 preset
+# name suggestions. Still not reproduced: the eagle's capture-method branching, the eagle's
+# missing/stolen investigation arc (that's an eagle-only mechanic, not the dog's), and funeral
+# integration (no hook target — we have no Oonihilism-specific funeral event).
+
+namespace = oonihilism_pet_tiger
+
+# Name your tiger — free-text entry with suggested presets, mirroring vanilla's eagle/dog naming
+# events (pet_animal.1001/3001, events/story_cycles/story_cycle_pet_animal_events.txt) exactly,
+# reskinned to our own 8 preset names (common/customizable_localization/99_oonihilism_pet_tiger_custom_loc.txt).
+oonihilism_pet_tiger.0001 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0001.t
+	desc = oonihilism_pet_tiger.0001.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	trigger = {
+		NOT = { exists = var:story_cycle_tiger_name }
+		NOT = { has_character_flag = is_naming_pet_tiger }
+	}
+
+	immediate = {
+		add_character_flag = is_naming_pet_tiger
+		hidden_effect = {
+			while = {
+				count = 3
+				assign_tiger_name_options_effect = yes
+			}
+		}
+		play_music_cue = "mx_cue_low_key_positive"
+		if = {
+			limit = { is_ai = yes }
+			random_in_list = {
+				variable = story_cycle_tiger_names
+				save_scope_as = tiger_name_pick
+				root = {
+					# BUGFIX: the naming widget's own preset buttons set var:story_cycle_tiger_name
+					# to flag:<localization_key> (the FULL key, e.g. flag:tiger_name_zawadi) —
+					# confirmed against vanilla's own EagleStoryName (common/customizable_localization/
+					# 00_pet_custom_loc.txt), which compares against flag:eagle_name_lyra, not
+					# flag:lyra. story_cycle_tiger_names only ever holds the short list-flags
+					# (flag:zawadi etc., used to filter which suggestions show), so AI's pick has to
+					# be translated to the matching full-key flag to land on the same
+					# TigerStoryName/TigerStoryNameAll branches a human's preset click would hit.
+					if = {
+						limit = { scope:tiger_name_pick = flag:zawadi }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_zawadi }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:sungura }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_sungura }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:harimau }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_harimau }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:meihua }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_meihua }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:kiraz }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_kiraz }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:anansi }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_anansi }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:macan }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_macan }
+					}
+					else_if = {
+						limit = { scope:tiger_name_pick = flag:huo }
+						set_variable = { name = story_cycle_tiger_name value = flag:tiger_name_huo }
+					}
+				}
+			}
+		}
+	}
+
+	widget = {
+		gui = "event_window_widget_enter_text"
+		container = "dynamic_birth_name"
+		controller = {
+			type = text
+			data = {
+				key = story_cycle_tiger_name
+				default = {
+					localization_key = tiger_name_zawadi
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:zawadi } }
+				}
+				default = {
+					localization_key = tiger_name_sungura
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:sungura } }
+				}
+				default = {
+					localization_key = tiger_name_harimau
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:harimau } }
+				}
+				default = {
+					localization_key = tiger_name_meihua
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:meihua } }
+				}
+				default = {
+					localization_key = tiger_name_kiraz
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:kiraz } }
+				}
+				default = {
+					localization_key = tiger_name_anansi
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:anansi } }
+				}
+				default = {
+					localization_key = tiger_name_macan
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:macan } }
+				}
+				default = {
+					localization_key = tiger_name_huo
+					trigger = { any_in_list = { variable = story_cycle_tiger_names this = flag:huo } }
+				}
+			}
+		}
+		setup_scope = {
+			root = { save_scope_as = text_target }
+		}
+	}
+
+	option = {
+		name = pet_animal.0001.a
+	}
+
+	after = {
+		remove_character_flag = is_naming_pet_tiger
+		clear_variable_list = story_cycle_tiger_names
+		if = {
+			# We entered custom text into the pop up (no preset flag got set by the widget)
+			limit = { NOT = { exists = var:story_cycle_tiger_name } }
+			set_variable = {
+				name = story_cycle_tiger_name
+				value = flag:custom
+			}
+		}
+		random_owned_story = {
+			limit = { story_type = story_cycle_pet_tiger }
+			set_variable = {
+				name = story_cycle_tiger_name
+				value = story_owner.var:story_cycle_tiger_name
+			}
+		}
+	}
+}
+
+# A glimpse of its nature — assigns one of the four personality flavors
+# (common/modifiers/99_oonihilism_pet_tiger_modifiers.txt), replacing the earlier approach of
+# silently rolling one at adoption via on_setup.
+oonihilism_pet_tiger.0004 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0004.t
+	desc = oonihilism_pet_tiger.0004.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+
+	trigger = {
+		NOR = {
+			has_character_modifier = fierce_tiger_story_modifier
+			has_character_modifier = loyal_tiger_story_modifier
+			has_character_modifier = calm_tiger_story_modifier
+			has_character_modifier = cunning_tiger_story_modifier
+		}
+	}
+
+	# Equal ai_chance on all four options gives AI characters a uniform-random outcome (25% each),
+	# same as a random_list would, while keeping every option valid to click for AI too (an
+	# immediate-block pre-resolution would otherwise leave AI with zero valid options here).
+	option = { # Fierce
+		name = oonihilism_pet_tiger.0004.a
+		add_character_modifier = {
+			modifier = fierce_tiger_story_modifier
+		}
+		add_character_flag = tiger_is_fierce
+		ai_chance = { base = 25 }
+	}
+	option = { # Loyal
+		name = oonihilism_pet_tiger.0004.b
+		add_character_modifier = {
+			modifier = loyal_tiger_story_modifier
+		}
+		add_character_flag = tiger_is_loyal
+		ai_chance = { base = 25 }
+	}
+	option = { # Calm
+		name = oonihilism_pet_tiger.0004.c
+		add_character_modifier = {
+			modifier = calm_tiger_story_modifier
+		}
+		add_character_flag = tiger_is_calm
+		ai_chance = { base = 25 }
+	}
+	option = { # Cunning
+		name = oonihilism_pet_tiger.0004.d
+		add_character_modifier = {
+			modifier = cunning_tiger_story_modifier
+		}
+		add_character_flag = tiger_is_cunning
+		ai_chance = { base = 25 }
+	}
+}
+
+# Time to consider letting it go
+oonihilism_pet_tiger.0002 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0002.t
+	desc = oonihilism_pet_tiger.0002.desc
+	theme = pet
+	override_background = { reference = terrain }
+
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+
+	trigger = {
+		NOT = { has_character_flag = tiger_is_dying }
+		is_alive = yes
+		exists = var:story_cycle_tiger_name
+	}
+
+	immediate = {
+		if = {
+			limit = { NOT = { exists = scope:story } }
+			every_owned_story = {
+				limit = { story_type = story_cycle_pet_tiger }
+				save_scope_as = story
+			}
+		}
+	}
+
+	option = { # Set it free
+		name = oonihilism_pet_tiger.0002.a
+		custom_tooltip = oonihilism_pet_tiger.0002.a_tt
+		add_prestige = medium_prestige_gain
+		show_as_tooltip = {
+			remove_tiger_story_modifiers_effect = yes
+		}
+		scope:story = {
+			hidden_effect = { end_story = yes }
+		}
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_compassion = 1
+			}
+		}
+	}
+
+	option = { # Keep it
+		name = oonihilism_pet_tiger.0002.b
+		custom_tooltip = oonihilism_pet_tiger.0002.b_tt
+		add_prestige = minor_prestige_gain
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_compassion = -1
+			}
+		}
+	}
+}
+
+# The tiger dies
+oonihilism_pet_tiger.0003 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0003.t
+	desc = oonihilism_pet_tiger.0003.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = sadness
+	}
+
+	artifact = {
+		position = lower_right_portrait
+		target = scope:newly_created_artifact
+	}
+
+	immediate = {
+		play_music_cue = "mx_cue_prison"
+		create_artifact_animal_hide_effect = {
+			OWNER = root
+			HUNTER = root
+			LEGENDARY = no
+			ANIMAL = flag:tiger
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0003.a
+		if = {
+			limit = { exists = scope:newly_created_artifact }
+			hidden_effect = { destroy_artifact = scope:newly_created_artifact }
+		}
+		ai_chance = { base = 100 }
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0003.b
+		remove_short_term_gold = { 10 20 }
+		show_as_tooltip = {
+			scope:newly_created_artifact = { set_owner = root }
+		}
+		ai_chance = { base = 10 }
+	}
+
+	after = {
+		show_as_tooltip = {
+			remove_tiger_story_modifiers_effect = yes
+		}
+		scope:story = {
+			hidden_effect = { end_story = yes }
+		}
+		remove_character_flag = tiger_is_dying
+	}
+}
+
+##################################################
+# Ongoing flavor events (see ongoing_tiger_events)
+##################################################
+
+# Feed it well
+oonihilism_pet_tiger.0010 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0010.t
+	desc = oonihilism_pet_tiger.0010.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	trigger = {
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0010_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0010_event
+			years = 5
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0010.a
+		add_character_modifier = {
+			modifier = well_fed_tiger_modifier
+			days = 3650
+		}
+	}
+}
+
+# It slips its cage
+oonihilism_pet_tiger.0011 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0011.t
+	desc = oonihilism_pet_tiger.0011.desc
+	theme = pet
+	override_background = { reference = terrain }
+
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+
+	trigger = {
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0011_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0011_event
+			years = 5
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0011.a
+		add_stress = medium_stress_gain
+	}
+}
+
+# It intimidates a courtier
+oonihilism_pet_tiger.0012 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0012.t
+	desc = oonihilism_pet_tiger.0012.desc
+	theme = pet
+	override_background = { reference = throne_room }
+
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+	right_portrait = {
+		character = scope:cowed_courtier
+		animation = worry
+	}
+
+	trigger = {
+		any_courtier_or_guest = { count > 0 }
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0012_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0012_event
+			years = 5
+		}
+		random_courtier_or_guest = {
+			limit = { is_available_ai_adult = yes }
+			save_scope_as = cowed_courtier
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0012.a
+		scope:cowed_courtier = {
+			add_opinion = {
+				target = root
+				modifier = impressed_opinion
+				opinion = 10
+			}
+		}
+	}
+}
+
+# It mauls a courtier
+oonihilism_pet_tiger.0013 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0013.t
+	desc = oonihilism_pet_tiger.0013.desc
+	theme = pet
+	override_background = { reference = terrain }
+
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+	right_portrait = {
+		character = scope:mauled_courtier
+		animation = pain
+	}
+
+	trigger = {
+		any_courtier_or_guest = { count > 0 }
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0013_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0013_event
+			years = 5
+		}
+		random_courtier_or_guest = {
+			limit = { is_available_ai_adult = yes }
+			save_scope_as = mauled_courtier
+		}
+	}
+
+	option = { # Apologize and pay for it
+		name = oonihilism_pet_tiger.0013.a
+		remove_short_term_gold = minor_gold_value
+		scope:mauled_courtier = {
+			add_opinion = {
+				target = root
+				modifier = gift_opinion
+				opinion = 10
+			}
+		}
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_compassion = 1
+			}
+		}
+	}
+
+	option = { # Shrug it off
+		name = oonihilism_pet_tiger.0013.b
+		add_character_modifier = {
+			modifier = feral_tiger_modifier
+			days = 1825
+		}
+		scope:mauled_courtier = {
+			add_opinion = {
+				target = root
+				modifier = disrespect_opinion
+				opinion = -15
+			}
+		}
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_compassion = -1
+			}
+			modifier = {
+				add = 20
+				OR = {
+					has_trait = callous
+					has_trait = sadistic
+					has_trait = arrogant
+				}
+			}
+		}
+	}
+}
+
+# Meets a rival tiger
+oonihilism_pet_tiger.0014 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0014.t
+	desc = oonihilism_pet_tiger.0014.desc
+	theme = pet
+	override_background = { reference = terrain }
+
+	left_portrait = {
+		character = root
+		animation = worry
+	}
+
+	trigger = {
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0014_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0014_event
+			years = 5
+		}
+	}
+
+	option = { # Let them fight it out
+		name = oonihilism_pet_tiger.0014.a
+		add_stress = minor_stress_gain
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_boldness = 1
+			}
+		}
+	}
+	option = { # Pull your tiger back
+		name = oonihilism_pet_tiger.0014.b
+		remove_short_term_gold = minor_gold_value
+
+		ai_chance = {
+			base = 50
+			ai_value_modifier = {
+				ai_boldness = -1
+			}
+			modifier = {
+				add = -1000
+				NOT = { short_term_gold >= minor_gold_value }
+			}
+		}
+	}
+}
+
+# Brought before the court
+oonihilism_pet_tiger.0015 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0015.t
+	desc = oonihilism_pet_tiger.0015.desc
+	theme = pet
+	override_background = { reference = throne_room }
+
+	left_portrait = {
+		character = root
+		animation = personality_rational
+	}
+
+	trigger = {
+		is_ruler = yes
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0015_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0015_event
+			years = 5
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0015.a
+		add_prestige = minor_prestige_gain
+	}
+}
+
+# It senses treachery
+oonihilism_pet_tiger.0016 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0016.t
+	desc = oonihilism_pet_tiger.0016.desc
+	theme = pet
+	override_background = { reference = sitting_room }
+	left_portrait = scope:agent
+
+	trigger = {
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0016_event }
+		any_targeting_scheme = {
+			is_scheme_exposed = no
+			save_temporary_scope_as = scheme_check
+			any_scheme_agent_character = {
+				NOT = { is_agent_exposed_in_scheme = scope:scheme_check }
+				is_in_the_same_court_as = root
+			}
+		}
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0016_event
+			years = 10
+		}
+		random_targeting_scheme = {
+			limit = { is_scheme_exposed = no }
+			save_scope_as = scheme
+			random_scheme_agent_character = {
+				limit = {
+					NOT = { is_agent_exposed_in_scheme = scope:scheme }
+					is_in_the_same_court_as = root
+				}
+				save_scope_as = agent
+			}
+		}
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0016.a
+		scope:scheme = {
+			expose_scheme = yes
+		}
+	}
+}
+
+##################################################
+# "Pet your Tiger" decision flavor (see story_cycle_tiger_pet_decision_on_actions)
+# 0020/0021 (100 combined weight) and 0022 (10 weight) carry no mauling risk at all; only 0023
+# (1 weight, ~0.9% of pulls) risks a wound via increase_wounds_effect. Stress loss on the two
+# good-visit outcomes bumped from minor to medium so the reward clearly outweighs that rare risk.
+##################################################
+
+oonihilism_pet_tiger.0020 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0020.t
+	desc = oonihilism_pet_tiger.0020.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0020.a
+		add_stress = medium_stress_loss
+	}
+}
+
+oonihilism_pet_tiger.0021 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0021.t
+	desc = oonihilism_pet_tiger.0021.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = happiness
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0021.a
+		add_stress = medium_stress_loss
+	}
+}
+
+oonihilism_pet_tiger.0022 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0022.t
+	desc = oonihilism_pet_tiger.0022.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = anger
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0022.a
+		add_stress = minor_stress_gain
+	}
+}
+
+# It lashes out — a real, escalating risk of visiting a tiger, unlike petting a dog.
+# increase_wounds_effect (vanilla, common/scripted_effects/20_health_effects.txt) kills the
+# character via death_$REASON$ once fully wounded — REASON = tigers maps to our own death_tigers
+# (common/deathreasons/99_oonihilism_death_reasons.txt).
+oonihilism_pet_tiger.0023 = {
+	type = character_event
+	title = oonihilism_pet_tiger.0023.t
+	desc = oonihilism_pet_tiger.0023.desc
+	theme = pet
+	override_background = { reference = ep2_dog_kennels }
+
+	left_portrait = {
+		character = root
+		animation = shock
+	}
+
+	trigger = {
+		NOT = { has_character_flag = had_oonihilism_pet_tiger_0023_event }
+	}
+
+	immediate = {
+		add_character_flag = {
+			flag = had_oonihilism_pet_tiger_0023_event
+			years = 10
+		}
+		increase_wounds_effect = { REASON = tigers }
+	}
+
+	option = {
+		name = oonihilism_pet_tiger.0023.a
+
+		ai_chance = {
+			base = 80
+			ai_value_modifier = {
+				ai_boldness = 1
+			}
+			modifier = {
+				add = -30
+				has_trait_rank = {
+					trait = wounded
+					rank >= 2
+				}
+			}
+		}
+	}
+
+	option = { # Get rid of it
+		name = oonihilism_pet_tiger.0023.b
+		show_as_tooltip = {
+			remove_tiger_story_modifiers_effect = yes
+		}
+		every_owned_story = {
+			limit = { story_type = story_cycle_pet_tiger }
+			hidden_effect = { end_story = yes }
+		}
+
+		ai_chance = {
+			base = 20
+			ai_value_modifier = {
+				ai_boldness = -1
+			}
+			modifier = {
+				add = 30
+				has_trait_rank = {
+					trait = wounded
+					rank >= 2
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,21 @@
+﻿# Can this character traverse rivers using boats?
+# root: the owner of the army
+# Vanilla content reproduced in full here (see common/scripted_rules/00_rules.txt)
+# since scripted_rules entries are replaced, not merged, by the last-loaded file
+# defining the same key — unlike can_raid_across_water, this rule has no separate
+# overridable trigger to hook into, so the whole rule has to be redefined.
+can_traverse_river = {
+	OR = {
+		culture = {
+			OR = {
+				has_innovation = innovation_longboats
+				has_innovation = innovation_african_canoes
+				has_cultural_parameter = can_travel_along_rivers
+			}
+		}
+		government_has_flag = government_enables_river_travel
+		dynasty ?= { has_dynasty_modifier = fp1_legacy_of_piracy_modifier }
+
+		faith = { has_doctrine_parameter = unlocks_sailable_major_rivers }
+	}
+}

@@ -1,0 +1,67 @@
+﻿tiger_cavalry = {
+	type = light_cavalry
+
+	# Buffed to elephant-tier raw power (see war_elephant, common/men_at_arms_types/00_regional_maa_types.txt:
+	# damage 250, toughness 50) while keeping the identity that separates a tiger from a lumbering
+	# elephant: real mobility (pursuit/screen, which elephants have none of) and terrain suited to
+	# ambush rather than open-ground trampling. Cost rebased off heavy_cavalry accordingly — see
+	# common/script_values/99_oonihilism_maa_values.txt.
+	damage = 220
+	toughness = 45
+	pursuit = 80
+	screen = 35
+
+	# Tiger habitat: dense jungle/forest and swamp/wetlands, not open plains/drylands. Note the
+	# contrast with war_elephant, which is strong in jungle too but heavily penalized in wetlands
+	# (-150 damage/-20 toughness) — tigers are the terrain's other apex predator.
+	terrain_bonus = {
+		jungle = { damage = 40 toughness = 30 }
+		forest = { damage = 40 toughness = 30 }
+		wetlands = { damage = 30 toughness = 24 }
+	}
+
+	# Cold-adapted (Siberian/Amur tiger), unlike horse-mounted cavalry which suffers here —
+	# see light_horsemen's harsh_winter malus (damage -5, toughness -2) for the usual case.
+	winter_bonus = {
+		harsh_winter = { damage = 12 toughness = 5 }
+	}
+
+	# 2x counter against heavy infantry and skirmishers, 4x against peasant_militia — mirroring
+	# vanilla's own house_guard (pikemen = 2, peasant_militia = 4, archers = 2,
+	# common/men_at_arms_types/00_maa_types.txt), curated down to this unit's own targets.
+	counters = {
+		heavy_infantry = 2
+		skirmishers = 2
+		peasant_militia = 4
+	}
+
+	# Only recruitable by followers of a faith with the Tiger Heralds tenet.
+	can_recruit = {
+		faith = {
+			has_doctrine_parameter = unlocks_tiger_cavalry
+		}
+	}
+
+	# See common/script_values/99_oonihilism_maa_values.txt for the cost rework rationale.
+	buy_cost = { gold = tiger_cavalry_recruitment_cost }
+	low_maintenance_cost = { gold = tiger_cavalry_low_maint_cost }
+	high_maintenance_cost = { gold = tiger_cavalry_high_maint_cost }
+	# A carnivore's upkeep on campaign costs more than a grain-fed horse's, though still less than
+	# an elephant's (provisions_cost_cavalry_bankrupting).
+	provision_cost = provisions_cost_cavalry_expensive
+
+	stack = 25
+	ai_quality = {
+		value = culture_ai_weight_light_cavalry
+	}
+
+	# Custom art (see gfx/interface/icons/regimenttypes/tiger_cavalry.dds,
+	# gfx/interface/illustrations/men_at_arms_big/tiger_cavalry.dds, and
+	# .../men_at_arms_small/tiger_cavalry.dds — reference resolves via the engine's
+	# REGIMENTYPE_HORIZONTAL_IMAGE_PATH/REGIMENTYPE_VERTICAL_IMAGE_PATH defines). No explicit
+	# `icon` field needed: the regiment-type icon falls back to the object's own key
+	# (tiger_cavalry) when omitted, which is exactly our icon file's name.
+	illustration = {
+		reference = tiger_cavalry
+	}
+}

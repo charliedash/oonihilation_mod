@@ -1,0 +1,278 @@
+﻿# Tasks for tiger_wrangler_court_position (common/court_positions/types/99_oonihilism_court_positions.txt).
+# Each has a flat employee_modifier (the wrangler's own benefit — employee modifiers can't scale by
+# design, see common/court_positions/tasks/_court_position_tasks.info). Guard the Menagerie and
+# Display the Beasts express the liege's benefit as a scaling_employer_modifiers block; Cat Sit
+# instead uses an on_yearly periodic chance (see its own comment below for why), which needs an
+# on_start custom_tooltip since on_yearly effects aren't auto-tooltipped the way modifiers are.
+
+### Guard the Menagerie — the tigers as a living deterrent ###
+tiger_wrangler_court_position_task_guard_menagerie = {
+	court_position_types = { tiger_wrangler_court_position }
+
+	is_shown = {
+		is_landed = yes
+	}
+	is_valid_showing_failures_only = { }
+
+	cost = {
+		round = no
+		gold = {
+			value = 0
+			if = {
+				limit = { scope:liege = { has_treasury = no } }
+				add = {
+					value = monthly_court_position_task_cost_double
+					if = {
+						limit = { scope:liege ?= { government_has_flag = government_is_nomadic } }
+						multiply = 0
+					}
+					desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+					format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+				}
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = { scope:liege = { has_treasury = yes } }
+				add = {
+					value = monthly_court_position_task_cost_double
+					if = {
+						limit = { scope:liege ?= { government_has_flag = government_is_nomadic } }
+						multiply = 0
+					}
+					desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+					format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+				}
+			}
+		}
+	}
+
+	employee_modifier = {
+		dread_gain_mult = 0.2
+	}
+
+	# Natural (baseline) dread, not a gain-rate multiplier — 0/5/10/15/20 across the 5 aptitude
+	# tiers, paired with an equal-magnitude 0/-5/-10/-15/-20 hostile scheme success chance reduction.
+	scaling_employer_modifiers = {
+		terrible = {
+		}
+		poor = {
+			enemy_hostile_scheme_success_chance_add = -5
+			dread_baseline_add = 5
+		}
+		average = {
+			enemy_hostile_scheme_success_chance_add = -10
+			dread_baseline_add = 10
+		}
+		good = {
+			enemy_hostile_scheme_success_chance_add = -15
+			dread_baseline_add = 15
+		}
+		excellent = {
+			enemy_hostile_scheme_success_chance_add = -20
+			dread_baseline_add = 20
+		}
+	}
+
+	ai_will_do = {
+		value = {
+			add = 25
+			add = ai_vengefulness
+		}
+		if = {
+			limit = {
+				has_treasury = no
+				monthly_character_income < monthly_court_position_task_cost_double
+			}
+			add = -1000
+		}
+		else_if = {
+			limit = {
+				has_treasury = yes
+				monthly_character_treasury_income < monthly_court_position_task_cost_double
+			}
+			add = -1000
+		}
+	}
+}
+
+### Display the Beasts — the tigers as a status symbol ###
+tiger_wrangler_court_position_task_display_beasts = {
+	court_position_types = { tiger_wrangler_court_position }
+
+	is_shown = {
+		is_landed = yes
+	}
+	is_valid_showing_failures_only = { }
+
+	cost = {
+		round = no
+		gold = {
+			value = 0
+			if = {
+				limit = { scope:liege = { has_treasury = no } }
+				add = {
+					value = monthly_court_position_task_cost
+					if = {
+						limit = { scope:liege ?= { government_has_flag = government_is_nomadic } }
+						multiply = 0
+					}
+					desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+					format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+				}
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = { scope:liege = { has_treasury = yes } }
+				add = {
+					value = monthly_court_position_task_cost
+					if = {
+						limit = { scope:liege ?= { government_has_flag = government_is_nomadic } }
+						multiply = 0
+					}
+					desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+					format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+				}
+			}
+		}
+	}
+
+	employee_modifier = {
+		diplomacy = 2
+	}
+
+	# 0/0.5/1/1.5/2 monthly prestige and 0/2.5/5/7.5/10 court grandeur across the 5 aptitude tiers.
+	scaling_employer_modifiers = {
+		terrible = {
+		}
+		poor = {
+			monthly_prestige = 0.5
+			court_grandeur_baseline_add = 2.5
+		}
+		average = {
+			monthly_prestige = 1
+			court_grandeur_baseline_add = 5
+		}
+		good = {
+			monthly_prestige = 1.5
+			court_grandeur_baseline_add = 7.5
+		}
+		excellent = {
+			monthly_prestige = 2
+			court_grandeur_baseline_add = 10
+		}
+	}
+
+	ai_will_do = {
+		value = {
+			add = 25
+			add = ai_sociability
+		}
+		if = {
+			limit = {
+				has_treasury = no
+				monthly_character_income < monthly_court_position_task_cost_double
+			}
+			add = -1000
+		}
+		else_if = {
+			limit = {
+				has_treasury = yes
+				monthly_character_treasury_income < monthly_court_position_task_cost_double
+			}
+			add = -1000
+		}
+	}
+}
+
+### Cat Sit — tending the liege's pet tiger, not just the war beasts ###
+tiger_wrangler_court_position_task_cat_sit = {
+	court_position_types = { tiger_wrangler_court_position }
+
+	is_shown = {
+		is_landed = yes
+	}
+	is_valid_showing_failures_only = { }
+
+	# Prestige cost, not gold/treasury — mirrors vanilla's own prestige-cost court position tasks
+	# (e.g. court_jester_court_position_task_entertain_court, common/court_positions/tasks/
+	# 00_court_jester_tasks.txt), which use this same single-field pattern since prestige has no
+	# treasury variant and isn't zeroed out for nomadic governments the way gold upkeep is.
+	cost = {
+		round = no
+		prestige = {
+			add = {
+				value = monthly_court_position_task_cost
+				desc = COURT_POSITION_TASK_COST_BREAKDOWN_BASE
+				format = "BASE_VALUE_FORMAT_DECIMALS_PLUS_NEGATIVE"
+			}
+		}
+	}
+
+	employee_modifier = {
+		stress_loss_mult = 0.25
+	}
+
+	# Periodic direct stress relief for the liege, not a passive stress_loss_mult — mirrors vanilla's
+	# court_jester_court_position_task_entertain_court (common/court_positions/tasks/
+	# 00_court_jester_tasks.txt), which rolls a yearly chance (scaled by the position's own aptitude
+	# tier via the generic aptitude(<position>) value) to grant a courtier stress relief. Adapted
+	# down to a single target (the liege, not a randomly-picked courtier) since Cat Sit is framed as
+	# personal care for the liege's own pet, not court-wide entertainment.
+	on_yearly = {
+		scope:liege = {
+			if = {
+				limit = {
+					stress > 0
+					is_physically_able = yes
+				}
+				random = {
+					chance = {
+						value = 5
+						switch = {
+							trigger = "aptitude(tiger_wrangler_court_position)"
+							5 = { add = 40 }
+							4 = { add = 30 }
+							3 = { add = 25 }
+							2 = { add = 15 }
+							1 = { add = 5 }
+						}
+					}
+					add_stress = medium_stress_loss
+					send_interface_message = {
+						type = event_tiger_wrangler_good
+						title = tiger_wrangler_cat_sit_relief_title
+						desc = tiger_wrangler_cat_sit_relief_desc
+					}
+				}
+			}
+		}
+	}
+
+	# on_yearly effects aren't auto-tooltipped the way scaling_employer_modifiers/employee_modifier
+	# are, so this custom_tooltip is needed to actually show the mechanic — mirrors vanilla's own
+	# court_jester_court_position_task_entertain_court on_start (common/court_positions/tasks/
+	# 00_court_jester_tasks.txt), which does the same for its own on_yearly stress-relief chance.
+	on_start = {
+		custom_tooltip = tiger_wrangler_court_position_task_cat_sit_tt
+	}
+
+	# No gold/treasury affordability check here — prestige-cost tasks don't gate ai_will_do on it in
+	# vanilla either (see court_jester_court_position_task_entertain_court/_fuel_the_rumour_mill,
+	# common/court_positions/tasks/00_court_jester_tasks.txt), unlike the gold-cost tasks above.
+	ai_will_do = {
+		value = {
+			add = 25
+			add = ai_compassion
+			scope:liege = {
+				if = {
+					limit = { any_owned_story = { type = story_cycle_pet_tiger } }
+					add = 25
+				}
+			}
+		}
+	}
+}
